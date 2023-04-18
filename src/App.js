@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AddTransaction from './pages/AddTransaction';
-import Dashboard from './pages/Dashboard';
+import AddTransaction from './pages/AddTransaction/Index';
+import Dashboard from './pages/Dashboard/Index';
 
 
 function App() {
