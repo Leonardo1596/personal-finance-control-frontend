@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
+import CurrencyInput from 'react-currency-input-field';
 
 const Index = () => {
     const options = ['Salário', 'Gastos essenciais', 'Gastos supérfluos', 'Investimentos', 'Gastos para trabalhar', 'Outros'];
+    const [value, setValue] = useState(0)
+
+    const handleValue = (newValue) => {
+        setValue(newValue);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
     }
 
+
     async function postTransaction() {
         const description = document.getElementById('description').value;
-        const value = document.getElementById('value').value;
+        // const value = document.getElementById('value').value;
         const category = document.getElementById('category').value;
         const type = document.getElementById('type').value;
         const date = document.getElementById('date').value;
 
 
+        // Get user email stored on localStorage
+        let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+
+
         let body = {
-            email: 'leonardoemanuel156@gmail.com',
+            email: JSON.parse(email.handleSetUser).email,
             description: description,
             value: value,
             category: category,
@@ -26,9 +37,9 @@ const Index = () => {
             date: date
         }
 
-        await axios.post('http://10.147.17.182:8000/api-post-transactions', body)
+        await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
             })
             .catch(err => {
                 console.log(err);
@@ -49,7 +60,15 @@ const Index = () => {
                     </C.FormGroup>
                     <C.FormGroup>
                         <C.FormLabel>Valor</C.FormLabel>
-                        <C.FormInput type="number" name="value" id="value" />
+                        {/* <C.FormInput type="number" name="value" id="value"  /> */}
+                        <C.StyledCurrencyInput
+                            name="myInput"
+                            value={value}
+                            onValueChange={handleValue}
+                            prefix="R$ "
+                            decimalSeparator=","
+                            groupSeparator="."
+                            disableAbbreviations={true} />
                     </C.FormGroup>
                     <C.FormGroup>
                         <C.FormLabel>Categoria</C.FormLabel>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CurrencyInput from 'react-currency-input-field';
 
 export const FormContainer = styled.form`
   margin-top: 50px;
@@ -27,6 +28,11 @@ export const FormLabel = styled.label`
 `;
 
 export const FormInput = styled.input`
+  padding: 0.5rem;
+  width: 100%;
+`;
+
+export const StyledCurrencyInput = styled(CurrencyInput)`
   padding: 0.5rem;
   width: 100%;
 `;

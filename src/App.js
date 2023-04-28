@@ -2,17 +2,42 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AddTransaction from './pages/AddTransaction/Index';
 import Dashboard from './pages/Dashboard/Index';
-
+import Login from './pages/Login/Index';
+import { Provider } from 'react-redux';
+import store, { persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import PrivateRoute from './components/PrivateRoute/Index';
+import PrivateRouteLogin from './components/PrivateRouteLogin/Index';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-transacao" element={<AddTransaction />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/dashboard" element={
+                <PrivateRoute main='entrar'>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+              />
+              <Route path="/add-transacao" element={
+                <PrivateRoute main='entrar'>
+                  <AddTransaction />
+                </PrivateRoute>
+              }
+              />
+              <Route path="/entrar" element={
+                <PrivateRouteLogin main='dashboard'>
+                  <Login />
+                </PrivateRouteLogin>
+              }
+              />
+            </Routes>
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
     </div>
   );
 }

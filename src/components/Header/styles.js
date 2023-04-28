@@ -12,6 +12,15 @@ export const Area = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  span {
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 10px 16px
+  }
 `;
 
 export const Title = styled.h1`

@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import {
-  DashboardTransactions,
-  DashboardTransactionList,
-  DashboardTransactionItem,
-  DashboardTransactionItemIcon,
-  DashboardTransactionItemInfo,
-  DashboardTransactionItemTitle,
-  DashboardTransactionItemCategory,
-  DashboardTransactionItemValue,
-  DashboardTransactionItemDate,
-} from './styles';
+import * as C from './styles';
 import axios from 'axios';
+import { FaMoneyCheckAlt, FaMoneyBillWave, FaUtensils, FaChartLine, FaBriefcase, FaEllipsisH } from 'react-icons/fa';
 
 const Index = () => {
   const [transactions, setTransactions] = useState([]);
+  const categoryIcons = {
+    'Salário': FaMoneyCheckAlt,
+    'Gastos essenciais': FaMoneyBillWave,
+    'Gastos supérfluos': FaUtensils,
+    'Investimentos': FaChartLine,
+    'Gastos para trabalhar': FaBriefcase,
+    'Outros': FaEllipsisH
+  }
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     function getTransactions() {
+      // Get user email stored on localStorage
+      let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+
       let body = {
-        email: 'leonardoemanuel156@gmail.com'
+        email: JSON.parse(email.handleSetUser).email
       }
       axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
         .then(response => {
@@ -28,29 +31,44 @@ const Index = () => {
         .catch(err => {
           console.log(err);
         });
+      setIsLoading(false);
     }
     getTransactions();
-  }, [transactions])
+  }, [])
+
+
+  function handleClickItem(transaction) {
+    console.log(transaction);
+  }
+
+
+  if (isLoading) {
+    return (<span>Carregando</span>)
+  }
 
 
   return (
     <div>
-      <DashboardTransactions>
-        <h2>Transações</h2>
-        <DashboardTransactionList>
-          {transactions.map((transaction, index) => (
-            <DashboardTransactionItem>
-              <DashboardTransactionItemIcon>🛍️</DashboardTransactionItemIcon>
-              <DashboardTransactionItemInfo>
-                <DashboardTransactionItemTitle>{transaction.description}</DashboardTransactionItemTitle>
-                <DashboardTransactionItemCategory>{transaction.category}</DashboardTransactionItemCategory>
-                <DashboardTransactionItemValue>{transaction.value}</DashboardTransactionItemValue>
-                <DashboardTransactionItemDate>{transaction.date}</DashboardTransactionItemDate>
-              </DashboardTransactionItemInfo>
-            </DashboardTransactionItem>
-          ))}
-        </DashboardTransactionList>
-      </DashboardTransactions>
+      <C.DashboardTransactionsContainer>
+        <C.DashboardTransactionsArea>
+          <C.DashboardTransactions>
+            <h2>Transações</h2>
+            <C.DashboardTransactionList>
+              {transactions.map((transaction, index) => (
+                <C.DashboardTransactionItem key={index} onClick={() => handleClickItem(transaction)}>
+                  <C.DashboardTransactionItemIcon>{categoryIcons[transaction.category] && React.createElement(categoryIcons[transaction.category])}</C.DashboardTransactionItemIcon>
+                  <C.DashboardTransactionItemInfo>
+                    <C.DashboardTransactionItemTitle>{transaction.description}</C.DashboardTransactionItemTitle>
+                    <C.DashboardTransactionItemCategory>{transaction.category}</C.DashboardTransactionItemCategory>
+                    <C.DashboardTransactionItemValue>{`R$ ${transaction.value}`}</C.DashboardTransactionItemValue>
+                    <C.DashboardTransactionItemDate>{transaction.date}</C.DashboardTransactionItemDate>
+                  </C.DashboardTransactionItemInfo>
+                </C.DashboardTransactionItem>
+              ))}
+            </C.DashboardTransactionList>
+          </C.DashboardTransactions>
+        </C.DashboardTransactionsArea>
+      </C.DashboardTransactionsContainer>
     </div>
   )
 }

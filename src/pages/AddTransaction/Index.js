@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/addTransaction-components/Header/Index';
+import Header from '../../components/Header/Index';
 import TransactionForm from '../../components/addTransaction-components/TransactionForm/Index';
 
 const Index = () => {
