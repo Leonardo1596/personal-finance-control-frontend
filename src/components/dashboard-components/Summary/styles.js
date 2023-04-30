@@ -51,6 +51,7 @@ export const DashboardSummaryItem = styled.div`
 
 export const DashboardSummaryItemTitle = styled.h2`
   margin: 0;
+  font-size: 24px;
 
   @media screen and (max-width: 500px) {
   font-size: 16px;

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
-import CurrencyInput from 'react-currency-input-field';
 
 const Index = () => {
     const options = ['Salário', 'Gastos essenciais', 'Gastos supérfluos', 'Investimentos', 'Gastos para trabalhar', 'Outros'];
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(0);
+    
 
     const handleValue = (newValue) => {
         setValue(newValue);
@@ -18,7 +18,7 @@ const Index = () => {
 
     async function postTransaction() {
         const description = document.getElementById('description').value;
-        // const value = document.getElementById('value').value;
+        const valueNumber = parseFloat(value.replace("R$ ", "").replace(".", "").replace(",", ".")).toFixed(2);
         const category = document.getElementById('category').value;
         const type = document.getElementById('type').value;
         const date = document.getElementById('date').value;
@@ -31,13 +31,13 @@ const Index = () => {
         let body = {
             email: JSON.parse(email.handleSetUser).email,
             description: description,
-            value: value,
+            value: valueNumber,
             category: category,
             type: type,
             date: date
         }
 
-        await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
+        await axios.post('http://10.147.17.182:8000/api-post-transactions', body)
             .then(response => {
                 // console.log(response.data);
             })

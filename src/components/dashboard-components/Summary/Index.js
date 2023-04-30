@@ -15,7 +15,7 @@ const Index = () => {
                     email: JSON.parse(user.handleSetUser).email
                 }
 
-                await axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
+                await axios.post('http://10.147.17.182:8000/api-transactions', body)
                     .then(response => {
                         // console.log(response.data.message);
                         // setTransactions(response.data.message);
@@ -28,10 +28,10 @@ const Index = () => {
 
                             // Somar os valores das transações filtradas
                             const sum = expensesTransactions.reduce((accumulator, transaction) => {
-                                return accumulator + parseFloat(transaction.value);
+                                return accumulator + transaction.value;
                             }, 0);
 
-                            setExpenses(sum);
+                            setExpenses(sum.toFixed(2));
 
                             // console.log(sum);
                         }
@@ -45,10 +45,10 @@ const Index = () => {
 
                             // Somar os valores das transações filtradas
                             const sum = expensesTransactions.reduce((accumulator, transaction) => {
-                                return accumulator + parseFloat(transaction.value);
+                                return accumulator + transaction.value;
                             }, 0);
 
-                            setRevenues(sum);
+                            setRevenues(sum.toFixed(2));
 
                             // console.log(sum);
                         }
@@ -71,21 +71,21 @@ const Index = () => {
                         <C.DashboardSummaryItem>
                             <C.DashboardSummaryItemTitle>Saldo
                             </C.DashboardSummaryItemTitle>
-                            <C.DashboardSummaryItemValue>{`R$ ${revenues - expenses}`}</C.DashboardSummaryItemValue>
+                            <C.DashboardSummaryItemValue>{`R$ ${(revenues - expenses).toFixed(2).replace('.', ',')}`}</C.DashboardSummaryItemValue>
                         </C.DashboardSummaryItem>
 
 
 
                         <C.DashboardSummaryItem>
                             <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle>
-                            <C.DashboardSummaryItemValue>{`R$ ${revenues}`}</C.DashboardSummaryItemValue>
+                            <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue>
                         </C.DashboardSummaryItem>
 
 
 
                         <C.DashboardSummaryItem>
                             <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle>
-                            <C.DashboardSummaryItemValue>{`R$ ${expenses}`}</C.DashboardSummaryItemValue>
+                            <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue>
                         </C.DashboardSummaryItem>
 
                     </C.DashboardSummary>

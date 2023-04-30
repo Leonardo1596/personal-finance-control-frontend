@@ -23,7 +23,7 @@ const Index = () => {
       let body = {
         email: JSON.parse(email.handleSetUser).email
       }
-      axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
+      axios.post('http://10.147.17.182:8000/api-transactions', body)
         .then(response => {
           // console.log(response.data.message);
           setTransactions(response.data.message);
@@ -54,13 +54,13 @@ const Index = () => {
           <C.DashboardTransactions>
             <h2>Transações</h2>
             <C.DashboardTransactionList>
-              {transactions.map((transaction, index) => (
+              {transactions.reverse().map((transaction, index) => (
                 <C.DashboardTransactionItem key={index} onClick={() => handleClickItem(transaction)}>
                   <C.DashboardTransactionItemIcon>{categoryIcons[transaction.category] && React.createElement(categoryIcons[transaction.category])}</C.DashboardTransactionItemIcon>
                   <C.DashboardTransactionItemInfo>
                     <C.DashboardTransactionItemTitle>{transaction.description}</C.DashboardTransactionItemTitle>
                     <C.DashboardTransactionItemCategory>{transaction.category}</C.DashboardTransactionItemCategory>
-                    <C.DashboardTransactionItemValue>{`R$ ${transaction.value}`}</C.DashboardTransactionItemValue>
+                    <C.DashboardTransactionItemValue>{`R$ ${transaction.value.toString().replace('.', ',')}`}</C.DashboardTransactionItemValue>
                     <C.DashboardTransactionItemDate>{transaction.date}</C.DashboardTransactionItemDate>
                   </C.DashboardTransactionItemInfo>
                 </C.DashboardTransactionItem>

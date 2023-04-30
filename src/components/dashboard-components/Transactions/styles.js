@@ -66,6 +66,7 @@ export const DashboardTransactionItemInfo = styled.div`
 
 export const DashboardTransactionItemTitle = styled.h3`
   margin: 0;
+  font-size: 21px;
 
   @media screen and (max-width: 500px) {
   font-size: 15px;
@@ -75,6 +76,7 @@ export const DashboardTransactionItemTitle = styled.h3`
 export const DashboardTransactionItemCategory = styled.p`
   margin: 0;
   color: #666;
+  font-size: 15px;
 
   @media screen and (max-width: 500px) {
   font-size: 13px;
@@ -96,6 +98,7 @@ export const DashboardTransactionItemDate = styled.p`
   margin: 0;
   color: #666;
   margin-top: 0.5rem;
+  font-size: 15px;
 
   @media screen and (max-width: 500px) {
   font-size: 13px;
