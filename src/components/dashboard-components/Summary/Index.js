@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
+// import Skeleton from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Index = () => {
     const [revenues, setRevenues] = useState('');
     const [expenses, setExpenses] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
             async function getTransactions() {
@@ -14,6 +18,7 @@ const Index = () => {
                 let body = {
                     email: JSON.parse(user.handleSetUser).email
                 }
+
 
                 await axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
                     .then(response => {
@@ -53,13 +58,16 @@ const Index = () => {
                             // console.log(sum);
                         }
                         sumRevenues();
+                        setIsLoading(false);
                     })
                     .catch(err => {
                         console.log(err);
                     });
             }
             getTransactions();
-    }, [revenues]);
+    }, []);
+
+    const balance = (revenues - expenses).toFixed(2).replace('.', ',');
 
 
     return (
@@ -69,23 +77,22 @@ const Index = () => {
                     <C.DashboardSummary>
 
                         <C.DashboardSummaryItem>
-                            <C.DashboardSummaryItemTitle>Saldo
-                            </C.DashboardSummaryItemTitle>
-                            <C.DashboardSummaryItemValue>{`R$ ${(revenues - expenses).toFixed(2).replace('.', ',')}`}</C.DashboardSummaryItemValue>
+                            {!isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!isLoading ? <C.DashboardSummaryItemValue>{`R$ ${balance}`}</C.DashboardSummaryItemValue> : <Skeleton />}
                         </C.DashboardSummaryItem>
 
 
 
                         <C.DashboardSummaryItem>
-                            <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle>
-                            <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue>
+                            {!isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!isLoading ? <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
                         </C.DashboardSummaryItem>
 
 
 
                         <C.DashboardSummaryItem>
-                            <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle>
-                            <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue>
+                            {!isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!isLoading ? <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
                         </C.DashboardSummaryItem>
 
                     </C.DashboardSummary>
