@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Skeleton from 'react-loading-skeleton';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export const DashboardSummaryContainer = styled.div`
@@ -49,6 +49,33 @@ export const DashboardSummaryItem = styled.div`
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative;
+`;
+
+export const DashboardSummaryButton = styled.button`
+  top: 18px;
+  right: 20px;
+  position: absolute;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 1rem;
+
+  @media screen and (max-width: 1024px) {
+  top: 19px;
+}
+
+  @media screen and (max-width: 768px) {
+  right: 15px
+}
+
+@media screen and (max-width: 500px) {
+  top: 12px;
+  right: 30px;
+}
 `;
 
 export const DashboardSummaryItemTitle = styled.h2`
@@ -68,5 +95,42 @@ export const DashboardSummaryItemValue = styled.p`
 
   @media screen and (max-width: 500px) {
   font-size: 16px;
+}
+`;
+
+export const DashboardSummaryHiddenValueContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 50%;
+  margin-top: 18px;
+`;
+
+export const DashboardSummaryHiddenValue = styled(FontAwesomeIcon)`
+  width: 12px;
+  margin: 0 3px;
+
+  @media screen and (max-width: 1024px) {
+  width: 11px;
+}
+
+@media screen and (max-width: 768px) {
+  width: 9px;
+
+  margin: 0 2px;
+}
+`;
+
+export const EyeIcon = styled(FontAwesomeIcon)`
+  margin-left: 5px;
+  font-size: 22px;
+
+  @media screen and (max-width: 1024px) {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  font-size: 18px;
 }
 `;
