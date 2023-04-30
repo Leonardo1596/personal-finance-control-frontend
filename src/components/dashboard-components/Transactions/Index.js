@@ -18,24 +18,25 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-      function getTransactions() {
-        // Get user email stored on localStorage
-        let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+    console.log(isLoading);
+    function getTransactions() {
+      // Get user email stored on localStorage
+      let email = JSON.parse(localStorage.getItem('persist:finance-control'));
 
-        let body = {
-          email: JSON.parse(email.handleSetUser).email
-        }
-        axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
-          .then(response => {
-            // console.log(response.data.message);
-            setTransactions(response.data.message);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        setIsLoading(false);
+      let body = {
+        email: JSON.parse(email.handleSetUser).email
       }
-      getTransactions();
+      axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
+        .then(response => {
+          // console.log(response.data.message);
+          setTransactions(response.data.message);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    getTransactions();
   }, []);
 
 
@@ -62,13 +63,14 @@ const Index = () => {
                   </C.DashboardTransactionItemInfo>
                 </C.DashboardTransactionItem>
               )) : <C.DashboardTransactionItem>
-              <C.DashboardTransactionItemInfo>
-                <C.DashboardTransactionItemTitle><Skeleton /></C.DashboardTransactionItemTitle>
-                <C.DashboardTransactionItemCategory><Skeleton /></C.DashboardTransactionItemCategory>
-                <C.DashboardTransactionItemValue><Skeleton /></C.DashboardTransactionItemValue>
-                <C.DashboardTransactionItemDate><Skeleton /></C.DashboardTransactionItemDate>
-              </C.DashboardTransactionItemInfo>
-            </C.DashboardTransactionItem>}
+                <C.DashboardTransactionItemIcon><Skeleton /></C.DashboardTransactionItemIcon>
+                <C.DashboardTransactionItemInfo>
+                  <C.DashboardTransactionItemTitle><Skeleton /></C.DashboardTransactionItemTitle>
+                  <C.DashboardTransactionItemCategory><Skeleton /></C.DashboardTransactionItemCategory>
+                  <C.DashboardTransactionItemValue><Skeleton /></C.DashboardTransactionItemValue>
+                  <C.DashboardTransactionItemDate><Skeleton /></C.DashboardTransactionItemDate>
+                </C.DashboardTransactionItemInfo>
+              </C.DashboardTransactionItem>}
             </C.DashboardTransactionList>
           </C.DashboardTransactions>
         </C.DashboardTransactionsArea>
