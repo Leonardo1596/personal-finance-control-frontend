@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export const DashboardTransactionsContainer = styled.div`
   width: 100vw;
@@ -53,7 +55,10 @@ export const DashboardTransactionItem = styled.li`
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 0.5rem;
-  cursor: pointer;
+
+  h2 {
+    cursor: pointer;
+  }
 `;
 
 export const DashboardTransactionItemIcon = styled.span`
@@ -103,4 +108,8 @@ export const DashboardTransactionItemDate = styled.p`
   @media screen and (max-width: 500px) {
   font-size: 13px;
 }
+`;
+
+export const TrashIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
 `;

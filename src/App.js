@@ -16,7 +16,7 @@ function App() {
         <PersistGate persistor={persistor}>
           <BrowserRouter>
             <Routes>
-              <Route path="/dashboard" element={
+              <Route path="/" element={
                 <PrivateRoute main='entrar'>
                   <Dashboard />
                 </PrivateRoute>
@@ -29,7 +29,7 @@ function App() {
               }
               />
               <Route path="/entrar" element={
-                <PrivateRouteLogin main='dashboard'>
+                <PrivateRouteLogin>
                   <Login />
                 </PrivateRouteLogin>
               }

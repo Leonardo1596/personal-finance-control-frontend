@@ -37,7 +37,7 @@ const Index = () => {
             date: date
         }
 
-        await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
+        await axios.post('http://10.147.17.182:8000/api-post-transactions', body)
             .then(response => {
                 // console.log(response.data);
             })
@@ -46,7 +46,7 @@ const Index = () => {
             });
 
         alert('A transação foi adicionada!');
-        window.location.href = '/dashboard';
+        window.location.href = '/';
     }
 
     return (

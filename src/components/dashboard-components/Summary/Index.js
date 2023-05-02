@@ -1,79 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import * as C from './styles';
-import axios from 'axios';
-// import Skeleton from 'react-loading-skeleton';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { faEye, faEyeSlash, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { setCurrentValueVisibility } from '../../../redux/action';
 
 
 const Index = () => {
+    const dispatch = useDispatch();
+    const transactions = useSelector((state) => state.handleTransactions);
+    const buttonVisibility = useSelector((state) => state.handleSetCurrentValueVisibility);
     const [revenues, setRevenues] = useState('');
     const [expenses, setExpenses] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const balance = (revenues - expenses).toFixed(2).replace('.', ',');
-    const [showBalance, setShowBalance] = useState(false);
 
     function handleClick() {
-        setShowBalance(!showBalance);
+        dispatch(setCurrentValueVisibility(!buttonVisibility));
     }
 
-
     useEffect(() => {
-        async function getTransactions() {
-            // Get user email stored on localStorage
-            let user = JSON.parse(localStorage.getItem('persist:finance-control'));
+        function sumExpenses() {
+            // Filtrar transações que são "saida"
+            const expensesTransactions = transactions.filter(transaction => transaction.type === "saída");
 
-            let body = {
-                email: JSON.parse(user.handleSetUser).email
-            }
-
-
-            await axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
-                .then(response => {
-                    // console.log(response.data.message);
-                    // setTransactions(response.data.message);
-
-
-                    // Retrieve expenses value and save on "expenses"
-                    function sumExpenses() {
-                        // Filtrar transações que são "saida"
-                        const expensesTransactions = response.data.message.filter(transaction => transaction.type === "saída");
-
-                        // Somar os valores das transações filtradas
-                        const sum = expensesTransactions.reduce((accumulator, transaction) => {
-                            return accumulator + transaction.value;
-                        }, 0);
-
-                        setExpenses(sum.toFixed(2));
-
-                        // console.log(sum);
-                    }
-                    sumExpenses();
-
-
-                    // Retrieve revenues value and save on "revenues"
-                    function sumRevenues() {
-                        // Filtrar transações que são "saida"
-                        const expensesTransactions = response.data.message.filter(transaction => transaction.type === "entrada");
-
-                        // Somar os valores das transações filtradas
-                        const sum = expensesTransactions.reduce((accumulator, transaction) => {
-                            return accumulator + transaction.value;
-                        }, 0);
-
-                        setRevenues(sum.toFixed(2));
-
-                        // console.log(sum);
-                    }
-                    sumRevenues();
-                    setIsLoading(false);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            // Somar os valores das transações filtradas
+            const sum = expensesTransactions.reduce((accumulator, transaction) => {
+                return accumulator + transaction.value;
+            }, 0);
+            setExpenses(sum.toFixed(2));
         }
-        getTransactions();
+        sumExpenses();
+
+
+        // Retrieve revenues value and save on "revenues"
+        function sumRevenues() {
+            // Filtrar transações que são "saida"
+            const expensesTransactions = transactions.filter(transaction => transaction.type === "entrada");
+
+            // Somar os valores das transações filtradas
+            const sum = expensesTransactions.reduce((accumulator, transaction) => {
+                return accumulator + transaction.value;
+            }, 0);
+            setRevenues(sum.toFixed(2));
+        }
+        sumRevenues();
+        setIsLoading(false);
     }, []);
 
     return (
@@ -81,19 +55,18 @@ const Index = () => {
             <C.DashboardSummaryContainer>
                 <C.DashboardSummaryArea>
                     <C.DashboardSummary>
-
                         <C.DashboardSummaryItem>
                             {!isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{showBalance ? (<C.EyeIcon icon={faEye} />) : (<C.EyeIcon icon={faEyeSlash} />)}</C.DashboardSummaryButton> : ''}
+                            {!isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{buttonVisibility ? (<C.EyeIcon icon={faEyeSlash} />) : (<C.EyeIcon icon={faEye} />)}</C.DashboardSummaryButton> : ''}
 
-                            {!isLoading ? (showBalance ? <C.DashboardSummaryItemValue>{`R$ ${balance}`}</C.DashboardSummaryItemValue> : (
-                                <span style={{display: 'flex', alignItems: 'center'}}>
+                            {!isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${balance}`}</C.DashboardSummaryItemValue> : (
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
-                                    <C.DashboardSummaryHiddenValue icon={faCircle} />
-                                    <C.DashboardSummaryHiddenValue icon={faCircle} />
-                                    <C.DashboardSummaryHiddenValue icon={faCircle} />
-                                    <C.DashboardSummaryHiddenValue icon={faCircle} />
-                                    <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
                                     </C.DashboardSummaryHiddenValueContainer>
                                 </span>)) : <Skeleton />}
                         </C.DashboardSummaryItem>

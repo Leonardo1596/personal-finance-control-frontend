@@ -23,3 +23,21 @@ export const removeUser = (user) => {
         payload: user
     }
 }
+
+
+// Get transactions
+export const getTransactions = (transactions) => {
+    return {
+        type: 'GETTRANSACTIONS',
+        payload: transactions
+    }
+}
+
+
+// For change current value visibility
+export const setCurrentValueVisibility = (prop) => {
+    return {
+        type: 'SETCURRENTVALUEVISIBILITY',
+        payload: prop
+    }
+}
