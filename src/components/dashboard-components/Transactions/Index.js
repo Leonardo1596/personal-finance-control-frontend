@@ -56,7 +56,7 @@ const Index = () => {
       id: transaction._id
     }
 
-    axios.post('http://10.147.17.182:8000/api-remove-transaction', body);
+    axios.post('https://api-personal-finance-control.onrender.com/api-remove-transaction', body);
   }
 
 
