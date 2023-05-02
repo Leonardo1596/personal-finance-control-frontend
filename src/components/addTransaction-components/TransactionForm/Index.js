@@ -37,7 +37,7 @@ const Index = () => {
             date: date
         }
 
-        await axios.post('http://10.147.17.182:8000/api-post-transactions', body)
+        await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
                 // console.log(response.data);
             })
