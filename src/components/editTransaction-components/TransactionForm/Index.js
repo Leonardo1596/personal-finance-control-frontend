@@ -104,15 +104,15 @@ const Index = () => {
 
         await axios.put('https://api-personal-finance-control.onrender.com/api-edit-transaction', body)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
+                window.location.href = '/';
             })
             .catch(err => {
                 console.log(err);
             });
-
-        alert('A transação foi editada!');
-        window.location.href = '/';
     }
+
+    
     return (
         <div>
             <C.FormContainer onSubmit={handleSubmit}>
