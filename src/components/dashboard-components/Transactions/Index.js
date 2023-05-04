@@ -4,9 +4,10 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaMoneyCheckAlt, FaMoneyBillWave, FaUtensils, FaChartLine, FaBriefcase, FaEllipsisH } from 'react-icons/fa';
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from 'react-redux';
 import { getTransactions } from '../../../redux/action';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,11 @@ const Index = () => {
   }
 
 
+  function handleEditButton(transaction) {
+    return transaction._id;
+  }
+
+
   return (
     <div>
       <C.DashboardTransactionsContainer>
@@ -76,6 +82,7 @@ const Index = () => {
                     <C.DashboardTransactionItemValue>{`R$ ${transaction.value.toString().replace('.', ',')}`}</C.DashboardTransactionItemValue>
                     <C.DashboardTransactionItemDate>{transaction.date}</C.DashboardTransactionItemDate>
                   </C.DashboardTransactionItemInfo>
+                  <Link to={`/editar-transacao/${handleEditButton(transaction)}`}><C.EditIcon icon={faEdit} onClick={() => handleEditButton(transaction)} /></Link>
                   <C.TrashIcon icon={faTrash} onClick={() => handleRemove(transaction)} />
                 </C.DashboardTransactionItem>
               )) : <C.DashboardTransactionItem>

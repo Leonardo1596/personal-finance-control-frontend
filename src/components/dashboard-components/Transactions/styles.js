@@ -113,3 +113,8 @@ export const DashboardTransactionItemDate = styled.p`
 export const TrashIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
 `;
+
+export const EditIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  margin-right: 20px;
+`

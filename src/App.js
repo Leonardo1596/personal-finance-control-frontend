@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AddTransaction from './pages/AddTransaction/Index';
+import EditTransaction from './pages/EditTransaction/Index';
 import Dashboard from './pages/Dashboard/Index';
 import Login from './pages/Login/Index';
 import { Provider } from 'react-redux';
@@ -25,6 +26,12 @@ function App() {
               <Route path="/add-transacao" element={
                 <PrivateRoute main='entrar'>
                   <AddTransaction />
+                </PrivateRoute>
+              }
+              />
+              <Route path="/editar-transacao/:id" element={
+                <PrivateRoute main='entrar'>
+                  <EditTransaction />
                 </PrivateRoute>
               }
               />
