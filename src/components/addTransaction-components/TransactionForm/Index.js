@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
+import gifLoading from '../../../assets/gif/loading-gif.gif';
 
 const Index = () => {
     const options = ['Salário', 'Gastos essenciais', 'Gastos supérfluos', 'Investimentos', 'Gastos para trabalhar', 'Outros'];
     const [value, setValue] = useState(0);
-    
+    const [isPostLoading, setIsPostLoading] = useState(false);
+
+
 
     const handleValue = (newValue) => {
         setValue(newValue);
@@ -17,6 +20,7 @@ const Index = () => {
 
 
     async function postTransaction() {
+        setIsPostLoading(true);
         const description = document.getElementById('description').value;
         const valueNumber = parseFloat(value.replace("R$ ", "").replace(".", "").replace(",", ".")).toFixed(2);
         const category = document.getElementById('category').value;
@@ -40,13 +44,11 @@ const Index = () => {
         await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
                 // console.log(response.data);
+                window.location.href = '/';
             })
             .catch(err => {
                 console.log(err);
             });
-
-        alert('A transação foi adicionada!');
-        window.location.href = '/';
     }
 
     return (
@@ -91,7 +93,7 @@ const Index = () => {
                         <C.FormLabel>Data</C.FormLabel>
                         <C.FormInput type="date" name="date" id="date"></C.FormInput>
                     </C.FormGroup>
-                    <C.FormButton onClick={postTransaction}>Adicionar</C.FormButton>
+                    <C.FormButton onClick={postTransaction}>{isPostLoading ? <img src={gifLoading} width={20} /> : 'Adicionar'}</C.FormButton>
                 </C.Area>
             </C.FormContainer>
         </div>

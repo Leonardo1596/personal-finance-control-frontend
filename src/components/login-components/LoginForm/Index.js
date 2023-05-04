@@ -3,12 +3,13 @@ import * as C from './styles';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setAuth, setUser } from '../../../redux/action';
+import gifLoading from '../../../assets/gif/loading-gif.gif';
 
 const Index = () => {
     const dispatch = useDispatch();
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoginLoading, setIsLoginLoading] = useState(false);
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -19,6 +20,7 @@ const Index = () => {
     };
 
     const handleSubmit = (event) => {
+        setIsLoginLoading(true);
         event.preventDefault();
         
         let body = {
@@ -47,7 +49,7 @@ const Index = () => {
                     <C.LoginTitle>Login</C.LoginTitle>
                     <C.LoginInput type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
                     <C.LoginInput type="password" placeholder="Senha" value={password} onChange={handlePasswordChange} />
-                    <C.LoginButton type="submit">Entrar</C.LoginButton>
+                    <C.LoginButton type="submit">{isLoginLoading ? <img src={gifLoading} width={20} />: 'Entrar'}</C.LoginButton>
                     <C.ForgotPasswordLink href="#">Esqueci minha senha</C.ForgotPasswordLink>
                 </C.LoginForm>
             </C.LoginContainer>

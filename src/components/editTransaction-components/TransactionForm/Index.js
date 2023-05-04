@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import gifLoading from '../../../assets/gif/loading-gif.gif';
 
 const Index = () => {
     const options = ['Salário', 'Gastos essenciais', 'Gastos supérfluos', 'Investimentos', 'Gastos para trabalhar', 'Outros'];
@@ -15,6 +16,8 @@ const Index = () => {
         date: '',
         id: id
     });
+    const [isLoading, setIsLoading] = useState(true);
+    const [isEditLoading, setIsEditLoading] = useState(false);
 
     const handleDescription = (event) => {
         setTransaction({
@@ -69,6 +72,7 @@ const Index = () => {
                     // console.log(response.data.message);
                     setTransaction(response.data.message);
                     setValue(response.data.message.value);
+                    setIsLoading(false);
 
                 })
                 .catch(err => {
@@ -76,13 +80,17 @@ const Index = () => {
                 });
         }
         getCurrentTransaction();
-    }, [])
+    }, []);
 
 
-
+    if (isLoading) {
+        return <div></div>
+    }
 
 
     async function editTransaction() {
+        setIsEditLoading(true);
+
         // To value start in a string
         const stringValue = String(value);
 
@@ -154,7 +162,8 @@ const Index = () => {
                         <C.FormLabel>Data</C.FormLabel>
                         <C.FormInput type="date" name="date" id="date" onChange={handleDate} value={transaction.date}></C.FormInput>
                     </C.FormGroup>
-                    <C.FormButton onClick={editTransaction}>Editar</C.FormButton>
+                    <C.FormButton onClick={editTransaction}>{isEditLoading ? <img src={gifLoading} width={20} /> : 'Editar'}</C.FormButton>
+                    
                 </C.Area>
             </C.FormContainer>
         </div>
