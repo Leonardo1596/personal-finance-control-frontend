@@ -55,7 +55,7 @@ const Index = () => {
                     date: date,
                     _id: response.data.result._id
                 }));
-                // window.location.href = '/';
+                window.location.href = '/';
             })
             .catch(err => {
                 console.log(err);
