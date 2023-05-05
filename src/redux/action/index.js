@@ -33,6 +33,32 @@ export const getTransactions = (transactions) => {
     }
 }
 
+// Add transaction
+export const addTransaction = (transaction) => {
+    return {
+      type: 'ADDTRANSACTION',
+      payload: transaction
+    }
+  }
+
+
+// Edit transaction
+export const updateTransaction = (updatedTransaction) => {
+    return {
+      type: 'UPDATETRANSACTION',
+      payload: updatedTransaction
+    }
+}
+
+
+// Remove transaction
+export const removeTransaction = (id) => {
+    return {
+        type: 'REMOVETRANSACTION',
+        payload: id
+    }
+}
+
 
 // For change current value visibility
 export const setCurrentValueVisibility = (prop) => {

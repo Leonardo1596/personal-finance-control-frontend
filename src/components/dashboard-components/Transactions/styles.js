@@ -115,6 +115,7 @@ export const TrashIcon = styled(FontAwesomeIcon)`
 `;
 
 export const EditIcon = styled(FontAwesomeIcon)`
+  color: black;
   cursor: pointer;
   margin-right: 20px;
 `

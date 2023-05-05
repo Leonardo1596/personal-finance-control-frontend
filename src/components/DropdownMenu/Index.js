@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { setAuth, setUser } from '../../redux/action';
+import { setAuth, setUser, getTransactions } from '../../redux/action';
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const Index = () => {
     function handleLogout() {
         dispatch(setAuth(false));
         dispatch(setUser(''));
+        dispatch(getTransactions(''));
       }
 
     return (

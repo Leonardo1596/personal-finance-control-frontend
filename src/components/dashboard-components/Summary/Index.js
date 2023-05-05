@@ -8,13 +8,13 @@ import { faEye, faEyeSlash, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { setCurrentValueVisibility } from '../../../redux/action';
 
 
-const Index = () => {
+const Index = (props) => {
     const dispatch = useDispatch();
-    const transactions = useSelector((state) => state.handleTransactions);
+    // const transactions = useSelector((state) => state.handleTransactions);
     const buttonVisibility = useSelector((state) => state.handleSetCurrentValueVisibility);
     const [revenues, setRevenues] = useState('');
     const [expenses, setExpenses] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const balance = (revenues - expenses).toFixed(2).replace('.', ',');
 
     function handleClick() {
@@ -24,7 +24,7 @@ const Index = () => {
     useEffect(() => {
         function sumExpenses() {
             // Filtrar transações que são "saida"
-            const expensesTransactions = transactions.filter(transaction => transaction.type === "saída");
+            const expensesTransactions = props.transactions.filter(transaction => transaction.type === "saída");
 
             // Somar os valores das transações filtradas
             const sum = expensesTransactions.reduce((accumulator, transaction) => {
@@ -38,7 +38,7 @@ const Index = () => {
         // Retrieve revenues value and save on "revenues"
         function sumRevenues() {
             // Filtrar transações que são "saida"
-            const expensesTransactions = transactions.filter(transaction => transaction.type === "entrada");
+            const expensesTransactions = !props.isLoading && props.transactions.filter(transaction => transaction.type === "entrada");
 
             // Somar os valores das transações filtradas
             const sum = expensesTransactions.reduce((accumulator, transaction) => {
@@ -47,7 +47,6 @@ const Index = () => {
             setRevenues(sum.toFixed(2));
         }
         sumRevenues();
-        setIsLoading(false);
     }, []);
 
     return (
@@ -56,10 +55,10 @@ const Index = () => {
                 <C.DashboardSummaryArea>
                     <C.DashboardSummary>
                         <C.DashboardSummaryItem>
-                            {!isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{buttonVisibility ? (<C.EyeIcon icon={faEyeSlash} />) : (<C.EyeIcon icon={faEye} />)}</C.DashboardSummaryButton> : ''}
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!props.isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{buttonVisibility ? (<C.EyeIcon icon={faEyeSlash} />) : (<C.EyeIcon icon={faEye} />)}</C.DashboardSummaryButton> : ''}
 
-                            {!isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${balance}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${balance}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -74,15 +73,15 @@ const Index = () => {
 
 
                         <C.DashboardSummaryItem>
-                            {!isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!isLoading ? <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!props.isLoading ? <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
                         </C.DashboardSummaryItem>
 
 
 
                         <C.DashboardSummaryItem>
-                            {!isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!isLoading ? <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!props.isLoading ? <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
                         </C.DashboardSummaryItem>
 
                     </C.DashboardSummary>

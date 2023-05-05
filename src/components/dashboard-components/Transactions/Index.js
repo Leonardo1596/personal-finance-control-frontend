@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as C from './styles';
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaMoneyCheckAlt, FaMoneyBillWave, FaUtensils, FaChartLine, FaBriefcase, FaEllipsisH } from 'react-icons/fa';
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from 'react-redux';
-import { getTransactions } from '../../../redux/action';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { removeTransaction } from '../../../redux/action';
 
-const Index = () => {
+
+const Index = (props) => {
   const dispatch = useDispatch();
-  // const [transactions, setTransactions] = useState([]);
-  const transactions = useSelector((state) => state.handleTransactions);
   const categoryIcons = {
     'Salário': FaMoneyCheckAlt,
     'Gastos essenciais': FaMoneyBillWave,
@@ -21,50 +20,29 @@ const Index = () => {
     'Gastos para trabalhar': FaBriefcase,
     'Outros': FaEllipsisH
   }
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Get all transactions
-    function fetchTransactions() {
-      // Get user email stored on localStorage
-      let email = JSON.parse(localStorage.getItem('persist:finance-control'));
-
-      let body = {
-        email: JSON.parse(email.handleSetUser).email
-      }
-      axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
-        .then(response => {
-          // console.log(response.data.message);
-
-          // setTransactions(response.data.message);
-          dispatch(getTransactions(response.data.message));
-          setIsLoading(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-    fetchTransactions();
-  }, [transactions]);
-
 
   // Remove transaction
   function handleRemove(transaction) {
     let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+    console.log(transaction);
 
     let body = {
       email: JSON.parse(email.handleSetUser).email,
       id: transaction._id
     }
-
-    axios.post('https://api-personal-finance-control.onrender.com/api-remove-transaction', body);
+    axios.post('https://api-personal-finance-control.onrender.com/api-remove-transaction', body)
+      .then(response => {
+        dispatch(removeTransaction(transaction._id));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
 
   function handleEditButton(transaction) {
     return transaction._id;
   }
-
 
   return (
     <div>
@@ -73,7 +51,7 @@ const Index = () => {
           <C.DashboardTransactions>
             <h2>Transações</h2>
             <C.DashboardTransactionList>
-              {!isLoading ? transactions.reverse().map((transaction, index) => (
+              {!props.isLoading ? props.transactions.reverse().map((transaction, index) => (
                 <C.DashboardTransactionItem key={index}>
                   <C.DashboardTransactionItemIcon>{categoryIcons[transaction.category] && React.createElement(categoryIcons[transaction.category])}</C.DashboardTransactionItemIcon>
                   <C.DashboardTransactionItemInfo>

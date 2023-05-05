@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateTransaction } from '../../../redux/action';
 import gifLoading from '../../../assets/gif/loading-gif.gif';
 
 const Index = () => {
+    const dispatch = useDispatch();
     const options = ['Salário', 'Gastos essenciais', 'Gastos supérfluos', 'Investimentos', 'Gastos para trabalhar', 'Outros'];
     const { id } = useParams();
     const [value, setValue] = useState(0);
@@ -69,11 +72,10 @@ const Index = () => {
 
             await axios.post(`https://api-personal-finance-control.onrender.com/api-transaction/${id}`, body)
                 .then(response => {
-                    // console.log(response.data.message);
+                    console.log(response.data.message);
                     setTransaction(response.data.message);
                     setValue(response.data.message.value);
                     setIsLoading(false);
-
                 })
                 .catch(err => {
                     console.log(err);
@@ -103,7 +105,7 @@ const Index = () => {
             email: JSON.parse(email.handleSetUser).email,
             id: id,
             description: transaction.description,
-            value: parseFloat(stringValue.replace("R$ ", "").replace(".", "").replace(",", ".")).toFixed(2),        // Convert to number to save on db
+            value: parseFloat(stringValue.replace(",", ".")).toFixed(2),        // Convert to number to save on db
             category: transaction.category,
             type: transaction.type,
             date: transaction.date
@@ -112,7 +114,16 @@ const Index = () => {
 
         await axios.put('https://api-personal-finance-control.onrender.com/api-edit-transaction', body)
             .then(response => {
-                // console.log(response.data);
+                const valueString = String(value).replace(",", ".");
+                console.log(parseFloat(valueString));
+                dispatch(updateTransaction({
+                    description: transaction.description,
+                    value: parseFloat(valueString),
+                    category: transaction.category,
+                    type: transaction.type,
+                    date: transaction.date,
+                    _id: transaction._id
+                }));
                 window.location.href = '/';
             })
             .catch(err => {
@@ -120,7 +131,7 @@ const Index = () => {
             });
     }
 
-    
+
     return (
         <div>
             <C.FormContainer onSubmit={handleSubmit}>
@@ -163,7 +174,7 @@ const Index = () => {
                         <C.FormInput type="date" name="date" id="date" onChange={handleDate} value={transaction.date}></C.FormInput>
                     </C.FormGroup>
                     <C.FormButton onClick={editTransaction}>{isEditLoading ? <img src={gifLoading} width={20} /> : 'Editar'}</C.FormButton>
-                    
+
                 </C.Area>
             </C.FormContainer>
         </div>

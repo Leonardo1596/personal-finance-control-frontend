@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
 import gifLoading from '../../../assets/gif/loading-gif.gif';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../../../redux/action';
 
 const Index = () => {
+    const dispatch = useDispatch();
     const options = ['Salário', 'Gastos essenciais', 'Gastos supérfluos', 'Investimentos', 'Gastos para trabalhar', 'Outros'];
     const [value, setValue] = useState(0);
     const [isPostLoading, setIsPostLoading] = useState(false);
@@ -43,7 +46,14 @@ const Index = () => {
 
         await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
-                // console.log(response.data);
+                console.log(response.data);
+                dispatch(addTransaction({
+                    description: description,
+                    value: parseFloat(value.replace(",", ".")),
+                    category: category,
+                    type: type,
+                    date: date
+                }));
                 window.location.href = '/';
             })
             .catch(err => {
