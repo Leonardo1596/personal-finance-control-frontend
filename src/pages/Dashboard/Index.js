@@ -49,7 +49,7 @@ const Dashboard = () => {
     let email = JSON.parse(localStorage.getItem('persist:finance-control'));
 
     try {
-      const response = await axios.post('http://10.147.17.182:8000/api-search-transaction', {
+      const response = await axios.post('https://api-personal-finance-control.onrender.com/api-search-transaction', {
         email: JSON.parse(email.handleSetUser).email,
         transactionName: transactionName
       });
