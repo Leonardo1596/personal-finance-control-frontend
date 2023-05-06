@@ -4,14 +4,13 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaMoneyCheckAlt, FaMoneyBillWave, FaUtensils, FaChartLine, FaBriefcase, FaEllipsisH } from 'react-icons/fa';
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { removeTransaction } from '../../../redux/action';
+import { format } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 
 const Index = (props) => {
-  const dispatch = useDispatch();
   const categoryIcons = {
     'Salário': FaMoneyCheckAlt,
     'Gastos essenciais': FaMoneyBillWave,
@@ -24,7 +23,6 @@ const Index = (props) => {
   // Remove transaction
   function handleRemove(transaction) {
     props.handleRemoveTransaction(transaction);
-
   }
 
 
@@ -42,8 +40,9 @@ const Index = (props) => {
         <C.DashboardTransactionsArea>
           <C.DashboardTransactions>
             <C.DashboardTransactionSearch>
-              <C.DashboardTransactionSearchLabel>Buscar transação</C.DashboardTransactionSearchLabel>
-              <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" onChange={handleSearchTransaction}/>
+              {/* <C.DashboardTransactionSearchLabel>Buscar transação</C.DashboardTransactionSearchLabel> */}
+              <C.SearchIcon icon={faSearch}/>
+              <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction}/>
             </C.DashboardTransactionSearch>
             {/* <h2>Transações</h2> */}
             <C.DashboardTransactionList>
@@ -54,7 +53,7 @@ const Index = (props) => {
                     <C.DashboardTransactionItemTitle>{transaction.description}</C.DashboardTransactionItemTitle>
                     <C.DashboardTransactionItemCategory>{transaction.category}</C.DashboardTransactionItemCategory>
                     <C.DashboardTransactionItemValue>{`R$ ${transaction.value.toString().replace('.', ',')}`}</C.DashboardTransactionItemValue>
-                    <C.DashboardTransactionItemDate>{transaction.date}</C.DashboardTransactionItemDate>
+                    <C.DashboardTransactionItemDate>{format(parseISO(transaction.date), 'dd/MM/yyyy')}</C.DashboardTransactionItemDate>
                   </C.DashboardTransactionItemInfo>
                   <Link to={`/editar-transacao/${handleEditButton(transaction)}`}><C.EditIcon icon={faEdit} onClick={() => handleEditButton(transaction)} /></Link>
                   <C.TrashIcon icon={faTrash} onClick={() => handleRemove(transaction)} />

@@ -44,10 +44,10 @@ export const DashboardTransactionSearch = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
+  position: relative;
 
   @media screen and (max-width: 576px) {
-    padding: 0.25rem;
-    justify-content: center;
+    /* padding: 0.25rem; */
   }  
 `;
 
@@ -56,8 +56,26 @@ export const DashboardTransactionSearchLabel = styled.label`
 `;
 
 export const DashboardTransactionSearchInput = styled.input`
-  padding: 0.5rem;
-  width: 35%;
+  padding: 0.5rem 3rem;
+  width: 40%;
+  outline: none;
+  border-radius: 15px;
+  /* border: none; */
+  border: 1px solid grey;
+  margin-bottom: 7px;
+
+  @media screen and (max-width: 1024px) {
+    height: 35px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0.5rem 4rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    font-size: 15px;
+  }
 `;
 
 export const DashboardTransactionList = styled.ul`
@@ -128,6 +146,27 @@ export const DashboardTransactionItemDate = styled.p`
   @media screen and (max-width: 500px) {
   font-size: 13px;
 }
+`;
+
+export const SearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  top: 13px;
+  left: 20px;
+  color: grey;
+  font-size: 18px;
+
+  @media screen and (max-width: 1024px) {
+    top: 10px;
+    font-size: 17px;
+  }
+
+  @media screen and (max-width: 768px) {
+    left: 30px;
+  }
+
+  @media screen and (max-width: 500px) {
+    font-size: 15px;
+  }
 `;
 
 export const TrashIcon = styled(FontAwesomeIcon)`

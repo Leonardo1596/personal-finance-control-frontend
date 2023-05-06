@@ -30,6 +30,8 @@ const Index = () => {
         const type = document.getElementById('type').value;
         const date = document.getElementById('date').value;
 
+        console.log(parseFloat(value.replace(",", ".")));
+
 
         // Get user email stored on localStorage
         let email = JSON.parse(localStorage.getItem('persist:finance-control'));

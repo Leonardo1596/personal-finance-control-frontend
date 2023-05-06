@@ -65,7 +65,6 @@ const Index = (props) => {
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
-                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
                                     </C.DashboardSummaryHiddenValueContainer>
                                 </span>)) : <Skeleton />}
                         </C.DashboardSummaryItem>
