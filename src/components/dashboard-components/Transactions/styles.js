@@ -40,6 +40,26 @@ export const DashboardTransactions = styled.div`
   }
 `;
 
+export const DashboardTransactionSearch = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+
+  @media screen and (max-width: 576px) {
+    padding: 0.25rem;
+    justify-content: center;
+  }  
+`;
+
+export const DashboardTransactionSearchLabel = styled.label`
+  margin-right: 15px;
+`;
+
+export const DashboardTransactionSearchInput = styled.input`
+  padding: 0.5rem;
+  width: 35%;
+`;
+
 export const DashboardTransactionList = styled.ul`
   list-style: none;
   padding: 0;

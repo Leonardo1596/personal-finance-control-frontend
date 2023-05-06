@@ -23,20 +23,8 @@ const Index = (props) => {
 
   // Remove transaction
   function handleRemove(transaction) {
-    let email = JSON.parse(localStorage.getItem('persist:finance-control'));
-    console.log(transaction);
+    props.handleRemoveTransaction(transaction);
 
-    let body = {
-      email: JSON.parse(email.handleSetUser).email,
-      id: transaction._id
-    }
-    axios.post('https://api-personal-finance-control.onrender.com/api-remove-transaction', body)
-      .then(response => {
-        dispatch(removeTransaction(transaction._id));
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
 
@@ -44,12 +32,20 @@ const Index = (props) => {
     return transaction._id;
   }
 
+  function handleSearchTransaction(event) {
+    props.onFilterTransactions(event.target.value);
+  }
+
   return (
     <div>
       <C.DashboardTransactionsContainer>
         <C.DashboardTransactionsArea>
           <C.DashboardTransactions>
-            <h2>Transações</h2>
+            <C.DashboardTransactionSearch>
+              <C.DashboardTransactionSearchLabel>Buscar transação</C.DashboardTransactionSearchLabel>
+              <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" onChange={handleSearchTransaction}/>
+            </C.DashboardTransactionSearch>
+            {/* <h2>Transações</h2> */}
             <C.DashboardTransactionList>
               {!props.isLoading ? props.transactions.reverse().map((transaction, index) => (
                 <C.DashboardTransactionItem key={index}>
