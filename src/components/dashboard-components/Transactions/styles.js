@@ -9,6 +9,7 @@ export const DashboardTransactionsContainer = styled.div`
 export const DashboardTransactionsArea = styled.div`
   margin: auto;
   max-width: 980px;
+  position: relative;
 
   @media screen and (max-width: 1024px) {
     max-width: 768px;
@@ -43,8 +44,9 @@ export const DashboardTransactions = styled.div`
 export const DashboardTransactionSearch = styled.div`
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   position: relative;
+  margin-bottom: 10px;
 
   @media screen and (max-width: 576px) {
     /* padding: 0.25rem; */
@@ -57,24 +59,24 @@ export const DashboardTransactionSearchLabel = styled.label`
 
 export const DashboardTransactionSearchInput = styled.input`
   padding: 0.5rem 3rem;
-  width: 40%;
+  width: 50%;
   outline: none;
   border-radius: 15px;
   /* border: none; */
   border: 1px solid grey;
-  margin-bottom: 7px;
 
   @media screen and (max-width: 1024px) {
+    width: 70%;
     height: 35px;
   }
 
   @media screen and (max-width: 768px) {
-    width: 100%;
     padding: 0.5rem 4rem;
   }
 
   @media screen and (max-width: 500px) {
     font-size: 15px;
+    padding: 0.5rem 3rem
   }
 `;
 
@@ -148,6 +150,12 @@ export const DashboardTransactionItemDate = styled.p`
 }
 `;
 
+export const AddIcon = styled(FontAwesomeIcon)`
+  color: teal;
+  font-size: 30px;
+  margin-right: 10px;
+`;
+
 export const SearchIcon = styled(FontAwesomeIcon)`
   position: absolute;
   top: 13px;
@@ -166,6 +174,7 @@ export const SearchIcon = styled(FontAwesomeIcon)`
 
   @media screen and (max-width: 500px) {
     font-size: 15px;
+    left: 20px;
   }
 `;
 

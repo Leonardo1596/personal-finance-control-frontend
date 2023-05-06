@@ -4,7 +4,7 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaMoneyCheckAlt, FaMoneyBillWave, FaUtensils, FaChartLine, FaBriefcase, FaEllipsisH } from 'react-icons/fa';
-import { faTrash, faEdit, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faSearch, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
@@ -41,8 +41,9 @@ const Index = (props) => {
           <C.DashboardTransactions>
             <C.DashboardTransactionSearch>
               {/* <C.DashboardTransactionSearchLabel>Buscar transação</C.DashboardTransactionSearchLabel> */}
-              <C.SearchIcon icon={faSearch}/>
-              <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction}/>
+              <C.SearchIcon icon={faSearch} />
+              <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction} />
+              <Link to={'/add-transacao'}><C.AddIcon icon={faCirclePlus} /></Link>
             </C.DashboardTransactionSearch>
             {/* <h2>Transações</h2> */}
             <C.DashboardTransactionList>
