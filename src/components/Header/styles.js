@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
-  background-color: #2e2e2e;
+  /* background-color: #2e2e2e; */
+  background-color: #6A5ACD;
   color: #fff;
 `;
 

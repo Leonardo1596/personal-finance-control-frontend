@@ -53,7 +53,7 @@ export const DashboardSummaryItem = styled.div`
 `;
 
 export const DashboardSummaryButton = styled.button`
-  top: 18px;
+  top: 16px;
   right: 20px;
   position: absolute;
 
@@ -65,11 +65,12 @@ export const DashboardSummaryButton = styled.button`
   font-size: 1rem;
 
   @media screen and (max-width: 1024px) {
-  top: 19px;
+  top: 14px;
 }
 
   @media screen and (max-width: 768px) {
-  right: 15px
+    top: 13px;
+    right: 15px
 }
 
 @media screen and (max-width: 500px) {
@@ -80,7 +81,15 @@ export const DashboardSummaryButton = styled.button`
 
 export const DashboardSummaryItemTitle = styled.h2`
   margin: 0;
-  font-size: 24px;
+  font-size: 19px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 17px;
+  }
 
   @media screen and (max-width: 500px) {
   font-size: 16px;
@@ -89,9 +98,17 @@ export const DashboardSummaryItemTitle = styled.h2`
 
 export const DashboardSummaryItemValue = styled.p`
   margin: 0;
-  font-size: 24px;
+  font-size: 19px;
   font-weight: bold;
   margin-top: 0.5rem;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 17px;
+  }
 
   @media screen and (max-width: 500px) {
   font-size: 16px;
@@ -104,12 +121,25 @@ export const DashboardSummaryHiddenValueContainer = styled.div`
   justify-content: center;
   margin: auto;
   width: 50%;
-  margin-top: 18px;
+  margin-top: 16px;
+  padding-bottom: 5px;
+
+  @media screen and (max-width: 1024px) {
+  margin-top: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  margin-top: 13px;
+}
+
+@media screen and (max-width: 500px) {
+  margin-top: 11px;
+}
 `;
 
 export const DashboardSummaryHiddenValue = styled(FontAwesomeIcon)`
-  width: 12px;
-  margin: 0 3px;
+  width: 9px;
+  margin: 0 2px;
 
   @media screen and (max-width: 1024px) {
   width: 11px;
@@ -117,20 +147,19 @@ export const DashboardSummaryHiddenValue = styled(FontAwesomeIcon)`
 
 @media screen and (max-width: 768px) {
   width: 9px;
-
   margin: 0 2px;
 }
 `;
 
 export const EyeIcon = styled(FontAwesomeIcon)`
   margin-left: 5px;
-  font-size: 22px;
+  font-size: 20px;
 
   @media screen and (max-width: 1024px) {
-  font-size: 20px;
+  font-size: 19px;
 }
 
 @media screen and (max-width: 768px) {
-  font-size: 18px;
+  font-size: 17px;
 }
 `;

@@ -73,14 +73,32 @@ const Index = (props) => {
 
                         <C.DashboardSummaryItem>
                             {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue> : (
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <C.DashboardSummaryHiddenValueContainer>
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                    </C.DashboardSummaryHiddenValueContainer>
+                                </span>
+                            )) : <Skeleton />}
                         </C.DashboardSummaryItem>
 
 
 
                         <C.DashboardSummaryItem>
                             {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue> : <Skeleton />}
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue> : (
+                                <span style={{ display: 'flex', alignItems: 'center' }}>
+                                    <C.DashboardSummaryHiddenValueContainer>
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                        <C.DashboardSummaryHiddenValue icon={faCircle} />
+                                    </C.DashboardSummaryHiddenValueContainer>
+                                </span>
+                            )) : <Skeleton />}
                         </C.DashboardSummaryItem>
 
                     </C.DashboardSummary>

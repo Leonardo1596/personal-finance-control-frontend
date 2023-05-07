@@ -53,21 +53,18 @@ export const DashboardTransactionSearch = styled.div`
   }  
 `;
 
-export const DashboardTransactionSearchLabel = styled.label`
-  margin-right: 15px;
-`;
-
 export const DashboardTransactionSearchInput = styled.input`
   padding: 0.5rem 3rem;
   width: 50%;
   outline: none;
   border-radius: 15px;
-  /* border: none; */
   border: 1px solid grey;
+  font-size: 15px;
 
   @media screen and (max-width: 1024px) {
     width: 70%;
     height: 35px;
+    font-size: 14px;
   }
 
   @media screen and (max-width: 768px) {
@@ -96,8 +93,12 @@ export const DashboardTransactionItem = styled.li`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 0.5rem;
 
-  h2 {
-    cursor: pointer;
+  .expense {
+    color: red;
+  }
+
+  .revenue {
+    color: green;
   }
 `;
 
@@ -111,43 +112,43 @@ export const DashboardTransactionItemInfo = styled.div`
 
 export const DashboardTransactionItemTitle = styled.h3`
   margin: 0;
-  font-size: 21px;
+  font-size: 16px;
 
-  @media screen and (max-width: 500px) {
-  font-size: 15px;
-}
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 export const DashboardTransactionItemCategory = styled.p`
   margin: 0;
   color: #666;
-  font-size: 15px;
+  font-size: 14px;
 
-  @media screen and (max-width: 500px) {
-  font-size: 13px;
-}
+  @media screen and (max-width: 1024px) {
+    font-size: 13px;
+  }
 `;
 
 export const DashboardTransactionItemValue = styled.p`
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   margin-top: 0.5rem;
 
-  @media screen and (max-width: 500px) {
-  font-size: 14px;
-}
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 export const DashboardTransactionItemDate = styled.p`
   margin: 0;
   color: #666;
   margin-top: 0.5rem;
-  font-size: 15px;
+  font-size: 14px;
 
-  @media screen and (max-width: 500px) {
-  font-size: 13px;
-}
+  @media screen and (max-width: 1024px) {
+    font-size: 13px;
+  }
 `;
 
 export const AddIcon = styled(FontAwesomeIcon)`
@@ -158,7 +159,7 @@ export const AddIcon = styled(FontAwesomeIcon)`
 
 export const SearchIcon = styled(FontAwesomeIcon)`
   position: absolute;
-  top: 13px;
+  top: 12px;
   left: 20px;
   color: grey;
   font-size: 18px;

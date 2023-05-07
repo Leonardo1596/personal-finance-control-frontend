@@ -9,7 +9,7 @@ const Header = () => {
         <div>
             <C.HeaderContainer>
                 <C.Area>
-                    <a href="/"><img src={img} width="200px"/></a>
+                    <a href="/"><img src={img} width="150px"/></a>
                     <DropdownMenu />
                 </C.Area>
             </C.HeaderContainer>

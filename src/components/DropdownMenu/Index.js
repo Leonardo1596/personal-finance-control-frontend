@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import * as C from './styles';
 import { useDispatch } from 'react-redux';
 import { setAuth, setUser, getTransactions } from '../../redux/action';
 
@@ -11,13 +12,16 @@ const Index = () => {
         dispatch(setAuth(false));
         dispatch(setUser(''));
         dispatch(getTransactions(''));
-      }
+    }
 
     return (
         <div>
-            <DropdownButton variant="secondary" title={<span>{JSON.parse(user).username}</span>}>
+            <C.Button ><DropdownButton variant="" title={<span>{JSON.parse(user).username}</span>}>
+                <Dropdown.Item className='item' onClick={handleLogout}>Logout</Dropdown.Item>
+            </DropdownButton></C.Button>
+            {/* <DropdownButton variant="secondary" title={<span>{JSON.parse(user).username}</span>}>
                 <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-            </DropdownButton>
+            </DropdownButton> */}
         </div>
     )
 }
