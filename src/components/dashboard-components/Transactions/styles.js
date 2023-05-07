@@ -47,10 +47,6 @@ export const DashboardTransactionSearch = styled.div`
   justify-content: space-between;
   position: relative;
   margin-bottom: 10px;
-
-  @media screen and (max-width: 576px) {
-    /* padding: 0.25rem; */
-  }  
 `;
 
 export const DashboardTransactionSearchInput = styled.input`
@@ -92,14 +88,6 @@ export const DashboardTransactionItem = styled.li`
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 0.5rem;
-
-  .expense {
-    color: red;
-  }
-
-  .revenue {
-    color: green;
-  }
 `;
 
 export const DashboardTransactionItemIcon = styled.span`
@@ -152,7 +140,7 @@ export const DashboardTransactionItemDate = styled.p`
 `;
 
 export const AddIcon = styled(FontAwesomeIcon)`
-  color: teal;
+  color: #6A5ACD;
   font-size: 30px;
   margin-right: 10px;
 `;
