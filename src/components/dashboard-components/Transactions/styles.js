@@ -46,7 +46,7 @@ export const DashboardTransactionSearch = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const DashboardTransactionSearchInput = styled.input`
@@ -70,6 +70,38 @@ export const DashboardTransactionSearchInput = styled.input`
   @media screen and (max-width: 500px) {
     font-size: 15px;
     padding: 0.5rem 3rem
+  }
+`;
+
+export const DashboardMenu = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+`;
+
+export const DashboardMenuList = styled.ul`
+  display: flex;
+  list-style: none;
+  margin-top: 15px;
+  padding: 0;
+`;
+
+export const DashboardMenuItem = styled.li`
+  margin-right: 15px;
+`;
+
+export const DashboardMenuItemButton = styled.button`
+  padding: 5px 20px;
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius: 15px;
+  min-width: 100px;
+  height: 35px;
+
+  :hover {
+    background-color: rgb(106, 90, 205);
+    color: white;
   }
 `;
 

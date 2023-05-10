@@ -10,44 +10,35 @@ import { setCurrentValueVisibility } from '../../../redux/action';
 
 const Index = (props) => {
     const dispatch = useDispatch();
-    // const transactions = useSelector((state) => state.handleTransactions);
     const buttonVisibility = useSelector((state) => state.handleSetCurrentValueVisibility);
     const [revenues, setRevenues] = useState('');
     const [expenses, setExpenses] = useState('');
-    // const [isLoading, setIsLoading] = useState(true);
-    const balance = (revenues - expenses).toFixed(2).replace('.', ',');
+    const balance = String(parseFloat(revenues.replace(',', '.')) - parseFloat(expenses.replace(',', '.'))).replace('.', ',');
+
 
     function handleClick() {
         dispatch(setCurrentValueVisibility(!buttonVisibility));
     }
 
+    
     useEffect(() => {
-        function sumExpenses() {
-            // Filtrar transações que são "saida"
-            const expensesTransactions = props.transactions.filter(transaction => transaction.type === "saída");
-
-            // Somar os valores das transações filtradas
-            const sum = expensesTransactions.reduce((accumulator, transaction) => {
-                return accumulator + transaction.value;
-            }, 0);
-            setExpenses(sum.toFixed(2));
-        }
         sumExpenses();
+        sumRevenues()
+    }, [props.transactions]);
 
 
-        // Retrieve revenues value and save on "revenues"
-        function sumRevenues() {
-            // Filtrar transações que são "saida"
-            const expensesTransactions = !props.isLoading && props.transactions.filter(transaction => transaction.type === "entrada");
+    function sumExpenses() {
+        setExpenses(String(props.transactions.filter(transaction => transaction.type === "saída").reduce((accumulator, transaction) => {
+            return accumulator + transaction.value;
+        }, 0).toFixed(2)).replace('.', ','));
+    }
 
-            // Somar os valores das transações filtradas
-            const sum = expensesTransactions.reduce((accumulator, transaction) => {
-                return accumulator + transaction.value;
-            }, 0);
-            setRevenues(sum.toFixed(2));
-        }
-        sumRevenues();
-    }, []);
+
+    function sumRevenues() {
+        setRevenues(String(props.transactions.filter(transaction => transaction.type === "entrada").reduce((accumulator, transaction) => {
+            return accumulator + transaction.value;
+        }, 0).toFixed(2)).replace('.', ','));
+    }
 
     return (
         <div>
@@ -73,7 +64,7 @@ const Index = (props) => {
 
                         <C.DashboardSummaryItem>
                             {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${revenues.replace('.', ',')}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${revenues}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -89,7 +80,7 @@ const Index = (props) => {
 
                         <C.DashboardSummaryItem>
                             {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${expenses.replace('.', ',')}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${expenses}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as C from './styles';
-import axios from 'axios';
+import FilterDropdown from '../FilterDropdown/Index';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FaMoneyCheckAlt, FaMoneyBillWave, FaUtensils, FaChartLine, FaBriefcase, FaEllipsisH } from 'react-icons/fa';
@@ -20,19 +20,25 @@ const Index = (props) => {
     'Outros': FaEllipsisH
   }
 
+
   // Remove transaction
   function handleRemove(transaction) {
     props.handleRemoveTransaction(transaction);
   }
 
 
+  // Edit transaction
   function handleEditButton(transaction) {
     return transaction._id;
   }
 
+  // Fetch transactions by name
   function handleSearchTransaction(event) {
-    props.onFilterTransactions(event.target.value);
+    setTimeout(() => {
+      props.filterByName(event.target.value);
+    }, 1400);
   }
+
 
   return (
     <div>
@@ -40,12 +46,18 @@ const Index = (props) => {
         <C.DashboardTransactionsArea>
           <C.DashboardTransactions>
             <C.DashboardTransactionSearch>
-              {/* <C.DashboardTransactionSearchLabel>Buscar transação</C.DashboardTransactionSearchLabel> */}
               <C.SearchIcon icon={faSearch} />
               <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction} />
               <Link to={'/add-transacao'}><C.AddIcon icon={faCirclePlus} /></Link>
             </C.DashboardTransactionSearch>
-            {/* <h2>Transações</h2> */}
+            <C.DashboardMenu>
+              <C.DashboardMenuList>
+                <C.DashboardMenuItem><FilterDropdown filterByType={props.filterByType} fetchAllTransactions={props.fetchAllTransactions} /></C.DashboardMenuItem>
+                <C.DashboardMenuItem><C.DashboardMenuItemButton>Transações</C.DashboardMenuItemButton></C.DashboardMenuItem>
+                <C.DashboardMenuItem><C.DashboardMenuItemButton>Contas a pagar</C.DashboardMenuItemButton></C.DashboardMenuItem>
+              </C.DashboardMenuList>
+            </C.DashboardMenu>
+
             <C.DashboardTransactionList>
               {!props.isLoading ? props.transactions.reverse().map((transaction, index) => (
                 <C.DashboardTransactionItem key={index}>

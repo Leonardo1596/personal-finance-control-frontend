@@ -48,7 +48,6 @@ const Index = () => {
 
         await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
-                console.log(response.data.result._id);
                 dispatch(addTransaction({
                     description: description,
                     value: parseFloat(value.replace(",", ".")),

@@ -14,60 +14,63 @@ import { getTransactions, removeTransaction } from '../../redux/action';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const [transactions, setTransactions] = useState([]);
-  const [filteredByNameTransaction, setfilteredByNameTransaction] = useState([]);
-  const transactionsGlobalState = useSelector((state) => state.handleTransactions);
+  const [transactionsGlobalState, setTransactionsGlobalState] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!transactionsGlobalState) {
-      // Get all transactions
-      function fetchTransactions() {
-        // Get user email stored on localStorage
-        let email = JSON.parse(localStorage.getItem('persist:finance-control'));
-
-        let body = {
-          email: JSON.parse(email.handleSetUser).email
-        }
-        axios.post('https://api-personal-finance-control.onrender.com/api-transactions', body)
-          .then(response => {
-            // console.log(response.data.message);
-            setTransactions(response.data.message);
-            dispatch(getTransactions(response.data.message));
-            setIsLoading(false);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-      fetchTransactions();
-    } else {
-      setIsLoading(false);
-    }
+    fetchTransactions();
   }, []);
+  
+  // Get all transactions
+  function fetchTransactions() {
+    // Get user email stored on localStorage
+    let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+
+    axios.post('https://api-personal-finance-control.onrender.com/api-transactions', { email: JSON.parse(email.handleSetUser).email })
+      .then(response => {
+        setTransactionsGlobalState(response.data.message);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  function handleFetchAllTransactions() {
+    setFilteredTransactions('');
+  }
 
   async function handleFetchTransactionByName(transactionName) {
     let email = JSON.parse(localStorage.getItem('persist:finance-control'));
 
-    try {
-      const response = await axios.post('https://api-personal-finance-control.onrender.com/api-search-transaction', {
-        email: JSON.parse(email.handleSetUser).email,
-        transactionName: transactionName
-      });
-
-      // console.log(response.data.transactions);
-      setfilteredByNameTransaction(response.data.transactions);
-      if (transactionName.length === 0) {
-        setfilteredByNameTransaction([]);
+    if (transactionName === '') {
+      setFilteredTransactions('');
+    } else {
+      try {
+        const response = await axios.post('https://api-personal-finance-control.onrender.com/api-search-transaction', {
+          email: JSON.parse(email.handleSetUser).email,
+          transactionName: transactionName
+        });
+        setFilteredTransactions(response.data.transactions);
+      } catch (err) {
+        console.log(err);
       }
-
-      //handle undefined return
-      if (response.data.transactions === undefined) {
-        setfilteredByNameTransaction([]);
-      }
-      
-    } catch (err) {
-      console.log(err);
     }
+
+  }
+
+  function filterByType(type) {
+    // Get user email stored on localStorage
+    let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+
+    axios.post('https://api-personal-finance-control.onrender.com/api-transactions', { email: JSON.parse(email.handleSetUser).email })
+      .then(response => {
+        setFilteredTransactions(response.data.message.filter(transaction => transaction.type === type));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
 
@@ -78,25 +81,21 @@ const Dashboard = () => {
         email: JSON.parse(email.handleSetUser).email,
         id: transaction._id
       });
-      dispatch(removeTransaction(transaction._id));
+      fetchTransactions();
     } catch (err) {
       console.log(err);
     }
   }
-  
+
   return (
     <div>
       <Header />
       <DashboardContainer>
         {/* <Months /> */}
-        {!isLoading ? (
           <>
-            <Summary transactions={transactionsGlobalState ? transactionsGlobalState : transactions} isLoading={isLoading} />
-            <Transactions transactions={filteredByNameTransaction.length > 0 ? filteredByNameTransaction : (transactionsGlobalState ? transactionsGlobalState : transactions)} isLoading={isLoading} onFilterTransactions={handleFetchTransactionByName} handleRemoveTransaction={handleRemoveTransaction} />
+            <Summary transactions={transactionsGlobalState} isLoading={isLoading} />
+            <Transactions transactions={filteredTransactions ? filteredTransactions : transactionsGlobalState} isLoading={isLoading} filterByName={handleFetchTransactionByName} handleRemoveTransaction={handleRemoveTransaction} filterByType={filterByType} fetchAllTransactions={handleFetchAllTransactions} />
           </>
-        ) : (
-          <div></div>
-        )}
       </DashboardContainer>
     </div>
   )
