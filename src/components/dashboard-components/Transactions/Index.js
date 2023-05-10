@@ -47,7 +47,10 @@ const Index = (props) => {
           <C.DashboardTransactions>
             <C.DashboardTransactionSearch>
               <C.SearchIcon icon={faSearch} />
-              <C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction} />
+              {!props.isLoading ? (<C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction} />) : (
+                <Skeleton width={450} height={40} borderRadius={15} />
+              )}
+              
               <Link to={'/add-transacao'}><C.AddIcon icon={faCirclePlus} /></Link>
             </C.DashboardTransactionSearch>
             <C.DashboardMenu>
