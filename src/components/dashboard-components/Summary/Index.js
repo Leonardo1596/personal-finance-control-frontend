@@ -49,7 +49,7 @@ const Index = (props) => {
                             {!props.isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
                             {!props.isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{buttonVisibility ? (<C.EyeIcon icon={faEyeSlash} />) : (<C.EyeIcon icon={faEye} />)}</C.DashboardSummaryButton> : ''}
 
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${balance}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: 'green'}} >{`+R$ ${balance}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -61,10 +61,9 @@ const Index = (props) => {
                         </C.DashboardSummaryItem>
 
 
-
                         <C.DashboardSummaryItem>
-                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${revenues}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: 'red'}} >{`-R$ ${expenses}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -77,10 +76,9 @@ const Index = (props) => {
                         </C.DashboardSummaryItem>
 
 
-
                         <C.DashboardSummaryItem>
-                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue>{`R$ ${expenses}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: 'green'}} >{`+R$ ${revenues}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />

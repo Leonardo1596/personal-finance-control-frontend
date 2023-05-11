@@ -39,7 +39,6 @@ const Index = (props) => {
     }, 1400);
   }
 
-
   return (
     <div>
       <C.DashboardTransactionsContainer>
@@ -71,7 +70,7 @@ const Index = (props) => {
                   <C.DashboardTransactionItemInfo>
                     <C.DashboardTransactionItemTitle>{transaction.description}</C.DashboardTransactionItemTitle>
                     <C.DashboardTransactionItemCategory>{transaction.category}</C.DashboardTransactionItemCategory>
-                    <C.DashboardTransactionItemValue>{`R$ ${transaction.value.toString().replace('.', ',')}`}</C.DashboardTransactionItemValue>
+                    <C.DashboardTransactionItemValue style={{ color: transaction.type === 'entrada' ? 'green' : 'red' }} >{transaction.type === 'entrada' ? `+R$ ${transaction.value.toString().replace('.', ',')}` : `-R$ ${transaction.value.toString().replace('.', ',')}` }</C.DashboardTransactionItemValue>
                     <C.DashboardTransactionItemDate>{format(parseISO(transaction.date), 'dd/MM/yyyy')}</C.DashboardTransactionItemDate>
                   </C.DashboardTransactionItemInfo>
                   <Link to={`/editar-transacao/${handleEditButton(transaction)}`}><C.EditIcon icon={faEdit} onClick={() => handleEditButton(transaction)} /></Link>

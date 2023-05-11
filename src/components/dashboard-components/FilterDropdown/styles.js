@@ -15,6 +15,10 @@ export const FilterDropdown = styled.div`
         background-color: rgb(80, 90, 150);
     }
 
+    a {
+        cursor: pointer;
+    }
+
     a:hover {
         background-color: rgb(106, 90, 205);
         color: white;
