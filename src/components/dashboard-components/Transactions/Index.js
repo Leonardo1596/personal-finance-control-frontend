@@ -47,17 +47,20 @@ const Index = (props) => {
           <C.DashboardTransactions>
             <C.DashboardTransactionSearch>
               <C.SearchIcon icon={faSearch} />
-              {!props.isLoading ? (<C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction} />) : (
-                <Skeleton width={450} height={40} borderRadius={15} />
+              {!props.isLoading ? (<C.DashboardTransactionSearchInput type="text" name="transactionName" id="transactionName" placeholder='Buscar transações' onChange={handleSearchTransaction} />) : <Skeleton className='skeleton-searchInput' />}
+              
+              
+              {!props.isLoading ? (<Link to={'/add-transacao'}><C.AddIcon icon={faCirclePlus} /></Link>) : (
+                <Skeleton width={35} height={35} borderRadius={15} />
               )}
               
-              <Link to={'/add-transacao'}><C.AddIcon icon={faCirclePlus} /></Link>
             </C.DashboardTransactionSearch>
             <C.DashboardMenu>
               <C.DashboardMenuList>
-                <C.DashboardMenuItem><FilterDropdown filterByType={props.filterByType} fetchAllTransactions={props.fetchAllTransactions} /></C.DashboardMenuItem>
-                <C.DashboardMenuItem><C.DashboardMenuItemButton>Transações</C.DashboardMenuItemButton></C.DashboardMenuItem>
-                <C.DashboardMenuItem><C.DashboardMenuItemButton>Contas a pagar</C.DashboardMenuItemButton></C.DashboardMenuItem>
+                {!props.isLoading ? (<C.DashboardMenuItem><FilterDropdown filterByType={props.filterByType} fetchAllTransactions={props.fetchAllTransactions} /></C.DashboardMenuItem>) : (
+                  <C.DashboardMenuItem><Skeleton width={100} height={35} borderRadius={15} /></C.DashboardMenuItem>
+                )}
+                
               </C.DashboardMenuList>
             </C.DashboardMenu>
 
@@ -83,6 +86,24 @@ const Index = (props) => {
                   <C.DashboardTransactionItemDate><Skeleton /></C.DashboardTransactionItemDate>
                 </C.DashboardTransactionItemInfo>
               </C.DashboardTransactionItem>}
+              <C.DashboardTransactionItem>
+                <C.DashboardTransactionItemIcon><Skeleton /></C.DashboardTransactionItemIcon>
+                <C.DashboardTransactionItemInfo>
+                  <C.DashboardTransactionItemTitle><Skeleton /></C.DashboardTransactionItemTitle>
+                  <C.DashboardTransactionItemCategory><Skeleton /></C.DashboardTransactionItemCategory>
+                  <C.DashboardTransactionItemValue><Skeleton /></C.DashboardTransactionItemValue>
+                  <C.DashboardTransactionItemDate><Skeleton /></C.DashboardTransactionItemDate>
+                </C.DashboardTransactionItemInfo>
+              </C.DashboardTransactionItem>
+              <C.DashboardTransactionItem>
+                <C.DashboardTransactionItemIcon><Skeleton /></C.DashboardTransactionItemIcon>
+                <C.DashboardTransactionItemInfo>
+                  <C.DashboardTransactionItemTitle><Skeleton /></C.DashboardTransactionItemTitle>
+                  <C.DashboardTransactionItemCategory><Skeleton /></C.DashboardTransactionItemCategory>
+                  <C.DashboardTransactionItemValue><Skeleton /></C.DashboardTransactionItemValue>
+                  <C.DashboardTransactionItemDate><Skeleton /></C.DashboardTransactionItemDate>
+                </C.DashboardTransactionItemInfo>
+              </C.DashboardTransactionItem>
             </C.DashboardTransactionList>
           </C.DashboardTransactions>
         </C.DashboardTransactionsArea>

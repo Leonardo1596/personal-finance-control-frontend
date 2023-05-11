@@ -1,9 +1,22 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 
 export const DashboardSummaryContainer = styled.div`
   width: 100vw;
+  animation: ${slideIn} 0.5s ease-in-out;
   `
 
 export const DashboardSummaryArea = styled.div`

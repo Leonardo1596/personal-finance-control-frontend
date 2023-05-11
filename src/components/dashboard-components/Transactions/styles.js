@@ -1,9 +1,22 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 
 export const DashboardTransactionsContainer = styled.div`
   width: 100vw;
+  animation: ${slideIn} 0.5s ease-in-out;
   `
 
 export const DashboardTransactionsArea = styled.div`
@@ -47,11 +60,30 @@ export const DashboardTransactionSearch = styled.div`
   justify-content: space-between;
   position: relative;
   margin-bottom: 20px;
+
+  .skeleton-searchInput {
+    width: 30rem;
+    height: 35px;
+    border-radius: 15px;
+
+    @media screen and (max-width: 768px) {
+      width: 23rem;
+    }
+
+    @media screen and (max-width: 576px) {
+      width: 65vw;
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 62vw;
+    }
+  }
 `;
 
+
 export const DashboardTransactionSearchInput = styled.input`
-  padding: 0.5rem 3rem;
   width: 50%;
+  padding: 0.5rem 3rem;
   outline: none;
   border-radius: 15px;
   border: 1px solid grey;
