@@ -240,3 +240,34 @@ export const EditIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
   margin-right: 20px;
 `
+
+export const DashboardLoadMoreContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+export const DashboardLoadMoreButton = styled.button`
+  padding: 8px 20px;
+  border: 2px solid mediumpurple;
+  background-color: mediumpurple;
+  color: white;
+  border-radius: 15px;
+  font-size: 16px;
+
+  @media screen and (max-width: 768px) {
+    padding: 5px 15px;
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+
+  :hover {
+    border-color: rebeccapurple;
+    background-color: rebeccapurple;
+  }
+`;

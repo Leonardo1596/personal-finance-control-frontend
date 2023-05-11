@@ -29,7 +29,7 @@ const Dashboard = () => {
 
     axios.post('https://api-personal-finance-control.onrender.com/api-transactions', { email: JSON.parse(email.handleSetUser).email })
       .then(response => {
-        setTransactionsGlobalState(response.data.message);
+        setTransactionsGlobalState(response.data.message.reverse());
         setIsLoading(false);
       })
       .catch(err => {

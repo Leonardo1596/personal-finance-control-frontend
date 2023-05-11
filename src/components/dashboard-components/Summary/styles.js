@@ -63,6 +63,44 @@ export const DashboardSummaryItem = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
+
+  .skeleton-title {
+    width: 130px;
+    height: 25px;
+    border-radius: 8px;
+
+    @media screen and (max-width: 1024px) {
+      width: 90px;
+      height: 23px;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 80px;
+    }
+
+    @media screen and (max-width: 576px) {
+      height: 22px;
+    }
+  }
+
+  .skeleton-value {
+    width: 150px;
+    height: 23px;
+    border-radius: 8px;
+
+    @media screen and (max-width: 1024px) {
+      width: 110px;
+      height: 23px;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 100px;
+    }
+
+    @media screen and (max-width: 576px) {
+      height: 22px;
+    }
+  }
 `;
 
 export const DashboardSummaryButton = styled.button`

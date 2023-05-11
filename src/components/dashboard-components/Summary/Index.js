@@ -20,7 +20,7 @@ const Index = (props) => {
         dispatch(setCurrentValueVisibility(!buttonVisibility));
     }
 
-    
+
     useEffect(() => {
         sumExpenses();
         sumRevenues()
@@ -46,10 +46,10 @@ const Index = (props) => {
                 <C.DashboardSummaryArea>
                     <C.DashboardSummary>
                         <C.DashboardSummaryItem>
-                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton className='skeleton-title' />}
                             {!props.isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{buttonVisibility ? (<C.EyeIcon icon={faEyeSlash} />) : (<C.EyeIcon icon={faEye} />)}</C.DashboardSummaryButton> : ''}
 
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: balance >= String(0) ? 'green' : 'red'}} >{balance >= String(0) ? `+R$ ${balance}` : `-R$ ${String(balance).replace('-', '')}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{ color: balance >= String(0) ? 'green' : 'red' }} >{balance >= String(0) ? `+R$ ${balance}` : `-R$ ${String(balance).replace('-', '')}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -57,13 +57,13 @@ const Index = (props) => {
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
                                     </C.DashboardSummaryHiddenValueContainer>
-                                </span>)) : <Skeleton />}
+                                </span>)) : <Skeleton className='skeleton-value' />}
                         </C.DashboardSummaryItem>
 
 
                         <C.DashboardSummaryItem>
-                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: 'red'}} >{`-R$ ${expenses}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Despesas</C.DashboardSummaryItemTitle> : <Skeleton className='skeleton-title' />}
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{ color: 'red' }} >{`-R$ ${expenses}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -72,13 +72,13 @@ const Index = (props) => {
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
                                     </C.DashboardSummaryHiddenValueContainer>
                                 </span>
-                            )) : <Skeleton />}
+                            )) : <Skeleton className='skeleton-value' />}
                         </C.DashboardSummaryItem>
 
 
                         <C.DashboardSummaryItem>
-                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton />}
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: 'green'}} >{`+R$ ${revenues}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? <C.DashboardSummaryItemTitle>Receitas</C.DashboardSummaryItemTitle> : <Skeleton className='skeleton-title' />}
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{ color: 'green' }} >{`+R$ ${revenues}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
@@ -87,7 +87,7 @@ const Index = (props) => {
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
                                     </C.DashboardSummaryHiddenValueContainer>
                                 </span>
-                            )) : <Skeleton />}
+                            )) : <Skeleton className='skeleton-value' />}
                         </C.DashboardSummaryItem>
 
                     </C.DashboardSummary>
