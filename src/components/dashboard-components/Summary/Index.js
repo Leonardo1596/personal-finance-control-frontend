@@ -49,7 +49,7 @@ const Index = (props) => {
                             {!props.isLoading ? <C.DashboardSummaryItemTitle>Saldo</C.DashboardSummaryItemTitle> : <Skeleton />}
                             {!props.isLoading ? <C.DashboardSummaryButton onClick={handleClick}>{buttonVisibility ? (<C.EyeIcon icon={faEyeSlash} />) : (<C.EyeIcon icon={faEye} />)}</C.DashboardSummaryButton> : ''}
 
-                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: 'green'}} >{`+R$ ${balance}`}</C.DashboardSummaryItemValue> : (
+                            {!props.isLoading ? (buttonVisibility ? <C.DashboardSummaryItemValue style={{color: balance >= String(0) ? 'green' : 'red'}} >{balance >= String(0) ? `+R$ ${balance}` : `-R$ ${String(balance).replace('-', '')}`}</C.DashboardSummaryItemValue> : (
                                 <span style={{ display: 'flex', alignItems: 'center' }}>
                                     <C.DashboardSummaryHiddenValueContainer>
                                         <C.DashboardSummaryHiddenValue icon={faCircle} />
