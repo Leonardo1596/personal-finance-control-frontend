@@ -42,7 +42,7 @@ const Dashboard = () => {
     // Get user email stored on localStorage
     let email = JSON.parse(localStorage.getItem('persist:finance-control'));
 
-    axios.post('http://localhost:8000/api-transactions', { email: JSON.parse(email.handleSetUser).email })
+    axios.post('https://api-personal-finance-control.onrender.com/api-transactions', { email: JSON.parse(email.handleSetUser).email })
       .then(response => {
         setTransactionsGlobalState(response.data.message.reverse());
         setIsLoading(false);

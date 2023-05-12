@@ -28,7 +28,7 @@ const Index = () => {
             password: password
         };
 
-        axios.post('http://localhost:8000/auth/sign-in', body)
+        axios.post('https://api-personal-finance-control.onrender.com/auth/sign-in', body)
             .then(response => {
                 console.log(response.data);
                 if (response.data.message === "Successfully signed") {
