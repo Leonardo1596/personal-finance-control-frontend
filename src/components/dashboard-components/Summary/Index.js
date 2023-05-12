@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { faEye, faEyeSlash, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faCircle } from "@fortawesome/free-solid-svg-icons";    
 import { setCurrentValueVisibility } from '../../../redux/action';
 
 

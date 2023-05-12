@@ -22,6 +22,7 @@ const Index = (props) => {
 
   const [visibleTransactions, setvisibleTransactions] = useState(6);
 
+
   function handleLoadMore() {
     setvisibleTransactions((prevVisibleTransactios) => prevVisibleTransactios + 6)
   }
