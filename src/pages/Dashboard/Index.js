@@ -11,6 +11,7 @@ import Months from '../../components/dashboard-components/Months/Index';
 
 const Dashboard = () => {
   const [transactionsGlobalState, setTransactionsGlobalState] = useState([]);
+  const [filteredTransactionsByName, setFilteredTransactionsByName] = useState()
   const [filteredTransactions, setFilteredTransactions] = useState();
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());  // Get current month
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // Get current year
@@ -35,7 +36,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchTransactions();
     filterTransactionsByMonth(currentMonth, currentYear);
-  }, [transactionsGlobalState]);
+  }, []);
 
 
   useEffect(() => {
@@ -59,13 +60,15 @@ const Dashboard = () => {
   }
 
   function handleFetchAllTransactions() {
-    setFilteredTransactions('');
+    setFilteredTransactionsByName('');
   }
 
   async function handleFetchTransactionByName(transactionName) {
     let email = JSON.parse(localStorage.getItem('persist:finance-control'));
+    console.log(transactionName);
 
     if (transactionName === '') {
+      setFilteredTransactionsByName('');
       setFilteredTransactions('');
     } else {
       try {
@@ -73,7 +76,8 @@ const Dashboard = () => {
           email: JSON.parse(email.handleSetUser).email,
           transactionName: transactionName
         });
-        setFilteredTransactions(response.data.transactions);
+        // setFilteredTransactions(response.data.transactions);
+        setFilteredTransactionsByName(response.data.transactions);
       } catch (err) {
         console.log(err);
       }
@@ -87,7 +91,7 @@ const Dashboard = () => {
 
     axios.post('https://api-personal-finance-control.onrender.com/api-transactions', { email: JSON.parse(email.handleSetUser).email })
       .then(response => {
-        setFilteredTransactions(response.data.message.filter(transaction => transaction.type === type));
+        setFilteredTransactionsByName(response.data.message.filter(transaction => transaction.type === type));
       })
       .catch(err => {
         console.log(err);
@@ -169,7 +173,7 @@ const Dashboard = () => {
         <Months month={currentMonthYear} handleArrowLeftMonth={handleArrowLeftMonth} handleArrowRighttMonth={handleArrowRighttMonth} />
         <>
           <Summary transactions={filteredTransactions ? filteredTransactions : transactionsGlobalState} isLoading={isLoading} />
-          <Transactions transactions={filteredTransactions ? filteredTransactions : transactionsGlobalState} isLoading={isLoading} filterByName={handleFetchTransactionByName} handleRemoveTransaction={handleRemoveTransaction} filterByType={filterByType} fetchAllTransactions={handleFetchAllTransactions} />
+          <Transactions transactions={filteredTransactionsByName ? filteredTransactionsByName : (filteredTransactions ? filteredTransactions : transactionsGlobalState)} isLoading={isLoading} filterByName={handleFetchTransactionByName} handleRemoveTransaction={handleRemoveTransaction} filterByType={filterByType} fetchAllTransactions={handleFetchAllTransactions} />
         </>
       </DashboardContainer>
     </div>

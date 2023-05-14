@@ -20,7 +20,8 @@ const Index = (props) => {
     'Outros': FaEllipsisH
   }
 
-  const [visibleTransactions, setvisibleTransactions] = useState(6);
+
+  const [visibleTransactions, setVisibleTransactions] = useState(6);
 
 
   function handleLoadMore() {
@@ -43,7 +44,7 @@ const Index = (props) => {
   function handleSearchTransaction(event) {
     setTimeout(() => {
       props.filterByName(event.target.value);
-    }, 1400);
+    }, 1000);
   }
 
   return (
