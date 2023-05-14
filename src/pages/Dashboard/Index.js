@@ -10,10 +10,10 @@ import Months from '../../components/dashboard-components/Months/Index';
 
 
 const Dashboard = () => {
-  const [transactions, setTransactions] = useState([]);
   const [transactionsGlobalState, setTransactionsGlobalState] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState();
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());  // Get current month
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // Get current year
   const [isLoading, setIsLoading] = useState(true);
 
   const months = {
@@ -34,9 +34,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchTransactions();
-  }, []);  
+    filterTransactionsByMonth(currentMonth, currentYear);
+  }, [transactionsGlobalState]);
 
-  
+
+  useEffect(() => {
+    filterTransactionsByMonth(currentMonth, currentYear);
+  }, [currentMonth, currentYear]);
+
+
   // Get all transactions
   function fetchTransactions() {
     // Get user email stored on localStorage
@@ -107,53 +113,64 @@ const Dashboard = () => {
   function handleArrowLeftMonth() {
     // fetchTransactions();
     if (currentMonth === 0) {
-      setCurrentMonth(0);
+      if (currentYear === 0) {
+        setCurrentMonth(0);
+      } else {
+        const updatedYear = currentYear - 1;
+        setCurrentYear(updatedYear);
+        setCurrentMonth(11);
+        filterTransactionsByMonth(11, updatedYear);
+      }
     } else {
       const updatedMonth = currentMonth - 1;
-    setCurrentMonth(updatedMonth);
-    filterTransactionsByMonth(updatedMonth);
+      setCurrentMonth(updatedMonth);
+      filterTransactionsByMonth(updatedMonth, currentYear);
     }
   }
 
   // Get the current month number and increments it by one more
   function handleArrowRighttMonth() {
     if (currentMonth === 11) {
-      setCurrentMonth(11);
+      const updatedYear = currentYear + 1;
+      setCurrentYear(updatedYear);
+      setCurrentMonth(0);
+      filterTransactionsByMonth(0, updatedYear);
     } else {
       const updatedMonth = currentMonth + 1;
-    setCurrentMonth(updatedMonth);
-    filterTransactionsByMonth(updatedMonth);
+      setCurrentMonth(updatedMonth);
+      filterTransactionsByMonth(updatedMonth, currentYear);
     }
   }
 
 
 
-  const filterTransactionsByMonth = (month) => {
+  const filterTransactionsByMonth = (month, year) => {
     const filtered = transactionsGlobalState.filter(transaction => {
       const transactionDate = transaction.date.split('-'); // Separar a data em dia, mês e ano
       const transactionMonth = parseInt(transactionDate[1], 10) - 1; // Obter o valor do mês como número
-      console.log(transactionMonth);
-      return transactionMonth === month;
+      const transactionYear = parseInt(transactionDate[0], 10); // Obter o valor do ano como número
+      return transactionMonth === month && transactionYear === year;
     });
-    setTransactions(filtered);
+    setFilteredTransactions(filtered);
   };
 
 
   useEffect(() => {
-    filterTransactionsByMonth(currentMonth);
-  }, [currentMonth]);
+    filterTransactionsByMonth(currentMonth, currentYear);
+  }, [currentMonth, currentYear, transactionsGlobalState]);
 
+  const currentMonthYear = `${months[currentMonth]} de ${currentYear}`;
 
 
   return (
     <div>
       <Header />
       <DashboardContainer>
-        <Months month={months[currentMonth]} handleArrowLeftMonth={handleArrowLeftMonth} handleArrowRighttMonth={handleArrowRighttMonth} />
-          <>
-            <Summary transactions={transactions ? transactions : transactionsGlobalState} isLoading={isLoading} />
-            <Transactions transactions={transactions ? transactions : (filteredTransactions ? filteredTransactions : transactionsGlobalState)} isLoading={isLoading} filterByName={handleFetchTransactionByName} handleRemoveTransaction={handleRemoveTransaction} filterByType={filterByType} fetchAllTransactions={handleFetchAllTransactions} />
-          </>
+        <Months month={currentMonthYear} handleArrowLeftMonth={handleArrowLeftMonth} handleArrowRighttMonth={handleArrowRighttMonth} />
+        <>
+          <Summary transactions={filteredTransactions ? filteredTransactions : transactionsGlobalState} isLoading={isLoading} />
+          <Transactions transactions={filteredTransactions ? filteredTransactions : transactionsGlobalState} isLoading={isLoading} filterByName={handleFetchTransactionByName} handleRemoveTransaction={handleRemoveTransaction} filterByType={filterByType} fetchAllTransactions={handleFetchAllTransactions} />
+        </>
       </DashboardContainer>
     </div>
   )
