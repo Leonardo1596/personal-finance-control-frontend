@@ -25,7 +25,7 @@ const Index = () => {
     async function postTransaction() {
         setIsPostLoading(true);
         const description = document.getElementById('description').value;
-        const valueNumber = parseFloat(value.replace("R$ ", "").replace(".", "").replace(",", ".")).toFixed(2);
+        const valueNumber = Number(parseFloat(value.replace("R$ ", "").replace(".", "").replace(",", ".")).toFixed(2));
         const category = document.getElementById('category').value;
         const type = document.getElementById('type').value;
         const date = document.getElementById('date').value;
@@ -38,12 +38,13 @@ const Index = () => {
         let body = {
             email: JSON.parse(email.handleSetUser).email,
             description: description,
-            value: valueNumber,
+            value: value,
             category: category,
             type: type,
             date: date
         }
 
+        
         await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
                 dispatch(addTransaction({

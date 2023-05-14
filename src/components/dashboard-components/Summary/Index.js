@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { faEye, faEyeSlash, faCircle } from "@fortawesome/free-solid-svg-icons";    
+import { faEye, faEyeSlash, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { setCurrentValueVisibility } from '../../../redux/action';
 
 
@@ -13,7 +13,7 @@ const Index = (props) => {
     const buttonVisibility = useSelector((state) => state.handleSetCurrentValueVisibility);
     const [revenues, setRevenues] = useState('');
     const [expenses, setExpenses] = useState('');
-    const balance = String(parseFloat(revenues.replace(',', '.')) - parseFloat(expenses.replace(',', '.'))).replace('.', ',');
+    const balance = (parseFloat(revenues.replace(',', '.')) - parseFloat(expenses.replace(',', '.'))).toFixed(2).replace('.', ',');
 
 
     function handleClick() {
@@ -28,16 +28,22 @@ const Index = (props) => {
 
 
     function sumExpenses() {
-        setExpenses(String(props.transactions.filter(transaction => transaction.type === "saída").reduce((accumulator, transaction) => {
-            return accumulator + transaction.value;
-        }, 0).toFixed(2)).replace('.', ','));
+        const filtered = props.transactions
+            .filter(transaction => transaction.type === "saída")
+            .reduce((accumulator, transaction) => {
+                return accumulator + parseFloat(transaction.value.replace(',', '.'));
+            }, 0);
+        setExpenses(filtered.toFixed(2).replace('.', ','));
     }
 
 
     function sumRevenues() {
-        setRevenues(String(props.transactions.filter(transaction => transaction.type === "entrada").reduce((accumulator, transaction) => {
-            return accumulator + transaction.value;
-        }, 0).toFixed(2)).replace('.', ','));
+        const filtered = props.transactions
+            .filter(transaction => transaction.type === "entrada")
+            .reduce((accumulator, transaction) => {
+                return accumulator + parseFloat(transaction.value.replace(',', '.'));
+            }, 0);
+        setRevenues(filtered.toFixed(2).replace('.', ','));
     }
 
     return (
