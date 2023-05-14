@@ -14,6 +14,12 @@ const Index = () => {
 
 
     const handleValue = (newValue) => {
+        if (newValue !== undefined) {
+            if (!newValue.includes(',')) {
+                // Adiciona as casas decimais manualmente
+                newValue += ',00';
+            }
+        }
         setValue(newValue);
     };
 
@@ -44,7 +50,7 @@ const Index = () => {
             date: date
         }
 
-        
+
         await axios.post('https://api-personal-finance-control.onrender.com/api-post-transactions', body)
             .then(response => {
                 dispatch(addTransaction({
@@ -73,7 +79,6 @@ const Index = () => {
                     </C.FormGroup>
                     <C.FormGroup>
                         <C.FormLabel>Valor</C.FormLabel>
-                        {/* <C.FormInput type="number" name="value" id="value"  /> */}
                         <C.StyledCurrencyInput
                             name="myInput"
                             value={value}
