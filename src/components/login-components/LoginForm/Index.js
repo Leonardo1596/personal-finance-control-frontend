@@ -22,18 +22,20 @@ const Index = () => {
     const handleSubmit = (event) => {
         setIsLoginLoading(true);
         event.preventDefault();
-        
+
         let body = {
             email: email,
             password: password
         };
 
-        axios.post('https://api-personal-finance-control.onrender.com/auth/sign-in', body)
+        axios.post('http://10.147.17.182:8000/auth/sign-in', body)
             .then(response => {
                 console.log(response.data);
                 if (response.data.message === "Successfully signed") {
                     dispatch(setUser(response.data.userProfile))
                     dispatch(setAuth(true));
+                    const token = response.data.token;
+                    localStorage.setItem("token", token);
                     window.location.href = '/';
                 } else {
                     setIsLoginLoading(false);
@@ -51,7 +53,7 @@ const Index = () => {
                     <C.LoginTitle>Login</C.LoginTitle>
                     <C.LoginInput type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
                     <C.LoginInput type="password" placeholder="Senha" value={password} onChange={handlePasswordChange} />
-                    <C.LoginButton type="submit">{isLoginLoading ? <img src={gifLoading} width={20} />: 'Entrar'}</C.LoginButton>
+                    <C.LoginButton type="submit">{isLoginLoading ? <img src={gifLoading} width={20} /> : 'Entrar'}</C.LoginButton>
                     <C.ForgotPasswordLink href="#">Esqueci minha senha</C.ForgotPasswordLink>
                 </C.LoginForm>
             </C.LoginContainer>
