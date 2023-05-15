@@ -54,7 +54,7 @@ const Dashboard = () => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
 
-    axios.post('http://10.147.17.182:8000/api-transactions', { email: JSON.parse(email.handleSetUser).email })
+    axios.post('https://api-personal-finance-control.onrender.com/api-transactions', { email: JSON.parse(email.handleSetUser).email })
       .then(response => {
         setTransactionsGlobalState(response.data.message.reverse());
         setIsLoading(false);
