@@ -40,7 +40,7 @@ const Index = (props) => {
                             </C.TransactionsMonth>
                         </C.TransactionsMonthContainer>
                         <FilterField />
-                        <TransactionsList transactions={props.transactions} />
+                        <TransactionsList transactions={props.transactions} userProfile={props.userProfile} />
                         <C.AddTransaction>
                             <C.LabelButton>Lançamento</C.LabelButton>
                             <C.DropdownButtonStyled onClick={toggleDropdown}><C.AddButton icon={faCirclePlus} /></C.DropdownButtonStyled>

@@ -28,6 +28,7 @@ const Index = (props) => {
   const [revenues, setRevenues] = useState([]);
   const [expenses, setExpenses] = useState([]);
 
+
   useEffect(() => {
     if (isPopupVisible) {
       dispatch(showExpensePopup(false));
@@ -36,7 +37,7 @@ const Index = (props) => {
     async function fetchBills() {
       await axios.get(`https://api-personal-finance-control.onrender.com/bills_to_pay/${userProfile._id}`)
         .then(response => {
-          // console.log(response.data);
+          console.log(response.data);
           const filteredBills = response.data.filter(bill => bill.paid === false);
           setBills(filteredBills);
           // console.log(filteredBills);
@@ -62,9 +63,9 @@ const Index = (props) => {
 
   useEffect(() => {
     async function fetchTransactions() {
-      axios.get(`https://api-personal-finance-control.onrender.com/transactions/${userProfile._id}/${userProfile.accounts[0]._id}`)
-        .then(response => {
-          let filteredTransactions = filterTransactionsByMonth(currentMonth, currentYear, response.data)
+      // axios.get(`https://api-personal-finance-control.onrender.com/transactions/${userProfile._id}/${userProfile.accounts[0]._id}`)
+      //   .then(response => {
+          let filteredTransactions = filterTransactionsByMonth(currentMonth, currentYear, userProfile.transactions);
           function sumRevenues() {
             const revenues = filteredTransactions.filter(transaction => transaction.type === 'entrada');
             const values = revenues.map(transaction => parseFloat(transaction.value.replace(',', '.')));
@@ -80,10 +81,10 @@ const Index = (props) => {
             setExpenses(sum.toFixed(2));
           }
           sumExpenses();
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        // })
+        // .catch(error => {
+        //   console.log(error);
+        // });
     }
     fetchTransactions();
   }, []);

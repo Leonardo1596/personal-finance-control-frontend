@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import store, { persistor } from './redux/store';
 import Home from './pages/Home/Index';
-import Navbar from './components/home-components/Navbar/Index';
 import Transactions from './pages/Transactions/Index';
 import Accounts from './pages/Accounts/Index';
 import Login from './pages/Login/Index';
@@ -13,13 +12,12 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {
-  
+
   return (
     <div>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <BrowserRouter>
-            {/* <Navbar /> */}
             <Routes>
               <Route path='/inicio' element={
                 <PrivateRoute login='entrar'>

@@ -10,7 +10,12 @@ import { showExpensePopup, showPopup, transactionType, setUser, setTransactionId
 const Index = ({ bills }) => {
     const dispatch = useDispatch();
     const userProfile = useSelector((state) => state.handleSetUser);
-    const accountId = useSelector(state => state.handleDeleteAccount);
+
+    // useEffect(() => {
+      
+    // }, [userProfile]);
+    
+    
 
     function handleAddButton() {
         dispatch(transactionType('saída'))

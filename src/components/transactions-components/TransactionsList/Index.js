@@ -3,7 +3,7 @@ import * as C from './styles';
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { showPopup, setAccountId, setTransactionId } from '../../../redux/action';
 
 const Index = (props) => {
@@ -14,6 +14,7 @@ const Index = (props) => {
     dispatch(setTransactionId(transactionId));
     dispatch(showPopup(true));
   }
+  
 
   return (
     <div>

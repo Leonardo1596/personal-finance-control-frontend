@@ -18,6 +18,8 @@ const Index = (props) => {
   const accountId = useSelector(state => state.handleDeleteAccount);
   const transactionId = useSelector(state => state.handleSetTransactionId);
 
+  const [transactionsRedux, setTransactionsRedux] = useState(useSelector((state) => state.handleSetUser.transactions));
+
   const months = {
     0: 'Janeiro',
     1: 'Fevereiro',
@@ -52,7 +54,7 @@ const Index = (props) => {
     } else {
       const updatedMonth = currentMonth - 1;
       setCurrentMonth(updatedMonth);
-      setFilteredTransactions(filterTransactionsByMonth(updatedMonth, currentYear, transactions));
+      setFilteredTransactions(filterTransactionsByMonth(updatedMonth, currentYear, transactionsRedux));
     }
   }
 
@@ -66,16 +68,16 @@ const Index = (props) => {
     } else {
       const updatedMonth = currentMonth + 1;
       setCurrentMonth(updatedMonth);
-      setFilteredTransactions(filterTransactionsByMonth(updatedMonth, currentYear, transactions));
+      setFilteredTransactions(filterTransactionsByMonth(updatedMonth, currentYear, transactionsRedux));
     }
   }
 
   const filterTransactionsByMonth = (month, year, transactions) => {
     if (transactions) {
       const filtered = transactions.filter(transaction => {
-        const transactionDate = transaction.date.split('-'); // Separar a data em dia, mês e ano
-        const transactionMonth = parseInt(transactionDate[1], 10) - 1; // Obter o valor do mês como número
-        const transactionYear = parseInt(transactionDate[0], 10); // Obter o valor do ano como número
+        const transactionDate = transaction.date.split('-'); // Separate day, month and year
+        const transactionMonth = parseInt(transactionDate[1], 10) - 1; // Get value month like number
+        const transactionYear = parseInt(transactionDate[0], 10); // Get value year like number
         return transactionMonth === month && transactionYear === year;
       });
       return filtered;
@@ -89,14 +91,16 @@ const Index = (props) => {
     }
 
     async function fetchTransactions() {
-      axios.get(`https://api-personal-finance-control.onrender.com/transactions/${userProfile._id}`)
-        .then(response => {
-          // console.log(response.data);
-          setTransactions(response.data);
-          setFilteredTransactions(filterTransactionsByMonth(currentMonth, currentYear, response.data));
-        });
+      // axios.get(`https://api-personal-finance-control.onrender.com/transactions/${userProfile._id}`)
+      //   .then(response => {
+      //     // console.log(response.data);
+      //     setTransactions(response.data);
+      //     setFilteredTransactions(filterTransactionsByMonth(currentMonth, currentYear, response.data));
+      //   });
+      setFilteredTransactions(filterTransactionsByMonth(currentMonth, currentYear, transactionsRedux));
     }
     fetchTransactions();
+
   }, []);
 
   function handleDeleteTransaction() {
@@ -122,7 +126,6 @@ const Index = (props) => {
       .then(response => {
         // console.log(response.data);
         setUpdatedUser();
-        window.location.reload();
       })
       .catch(err => {
         console.log(err);
@@ -136,7 +139,7 @@ const Index = (props) => {
 
         {isConfirmPopupVisible && <C.Overlay><ConfirmationPopup header='Confirmar exclusão' description='Tem certeza que deseja excluir a transação selecionada?' handleAction={handleDeleteTransaction} /></C.Overlay>}
         <Navbar />
-        <Transactions transactions={filteredTransactions ? filteredTransactions : transactions} handleArrowLeftMonth={handleArrowLeftMonth} handleArrowRighttMonth={handleArrowRighttMonth} month={currentMonthYear} />
+        <Transactions transactions={filteredTransactions ? filteredTransactions : transactions} handleArrowLeftMonth={handleArrowLeftMonth} handleArrowRighttMonth={handleArrowRighttMonth} month={currentMonthYear} userProfile={userProfile} />
       </C.Main>
     </div>
   )

@@ -124,7 +124,7 @@ const Index = (props) => {
                     dispatch(transactionType(''))
                     dispatch(showExpensePopup(false));
                     setUpdatedUser();
-                    window.location.reload();
+                    // window.location.reload();
                 }
             })
             .catch(err => {

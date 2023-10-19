@@ -47,7 +47,8 @@ const Index = (props) => {
                                 <C.SummaryEyeIcon icon={faEye} />
                                 <C.SummaryCurrencyValueContainer>
                                     <span className='currency'>R$</span>
-                                    <span className='value'>{userInfo ? userInfo.accounts[0].balance.replace('.', ',') : '0,00'}</span>
+                                    <span className='value'>{props.userProfile ? (props.revenues - props.expenses).toFixed(2).toString().replace('.', ',') : '0,00'}</span>
+
                                 </C.SummaryCurrencyValueContainer>
                             </C.SummaryBalance>
                             <C.SummaryInfoList>
