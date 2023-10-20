@@ -3,21 +3,12 @@ import * as C from './styles';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const Index = () => {
+const Index = (props) => {
     const [transactions, setTransactions] = useState([]);
     const [categoryPercentages, setCategoryPercentages] = useState({});
-    const userProfile = useSelector((state) => state.handleSetUser);
 
     useEffect(() => {
-        async function fetchTransactions() {
-            try {
-                const response = await axios.get(`https://api-personal-finance-control.onrender.com/transactions/${userProfile._id}/${userProfile.accounts[0]._id}`);
-                setTransactions(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchTransactions();
+        setTransactions(props.userProfile.accounts[0].transactions);
     }, []);
 
     useEffect(() => {

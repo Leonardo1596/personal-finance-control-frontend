@@ -18,7 +18,7 @@ const Index = (props) => {
   const accountId = useSelector(state => state.handleDeleteAccount);
   const transactionId = useSelector(state => state.handleSetTransactionId);
 
-  const [transactionsRedux, setTransactionsRedux] = useState(useSelector((state) => state.handleSetUser.transactions));
+  const [transactionsRedux, setTransactionsRedux] = useState(useSelector((state) => state.handleSetUser.accounts[0].transactions));
 
   const months = {
     0: 'Janeiro',

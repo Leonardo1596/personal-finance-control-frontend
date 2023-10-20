@@ -28,7 +28,6 @@ const Index = (props) => {
   const [revenues, setRevenues] = useState([]);
   const [expenses, setExpenses] = useState([]);
 
-
   useEffect(() => {
     if (isPopupVisible) {
       dispatch(showExpensePopup(false));
@@ -65,7 +64,7 @@ const Index = (props) => {
     async function fetchTransactions() {
       // axios.get(`https://api-personal-finance-control.onrender.com/transactions/${userProfile._id}/${userProfile.accounts[0]._id}`)
       //   .then(response => {
-          let filteredTransactions = filterTransactionsByMonth(currentMonth, currentYear, userProfile.transactions);
+          let filteredTransactions = filterTransactionsByMonth(currentMonth, currentYear, userProfile.accounts[0].transactions);
           function sumRevenues() {
             const revenues = filteredTransactions.filter(transaction => transaction.type === 'entrada');
             const values = revenues.map(transaction => parseFloat(transaction.value.replace(',', '.')));
@@ -133,8 +132,8 @@ const Index = (props) => {
 
             <WidgetBills bills={bills} />
             <WidgetIncome />
-            <Accounts userProfile={userProfile} />
-            <ExpenseCategories />
+            <Accounts userProfile={userProfile} expenses={expenses} revenues={revenues} />
+            <ExpenseCategories userProfile={userProfile} />
 
           </C.WidgetGridArea>
         </C.WidgetGridContainer>

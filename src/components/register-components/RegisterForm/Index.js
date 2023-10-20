@@ -51,7 +51,7 @@ const Index = () => {
                             </C.RegisterFormGroup>
                             <C.RegisterFormButton onClick={register} id='Register'>Cadastrar</C.RegisterFormButton>
                             <span>Já tem uma conta?</span>
-                            <a href="#" className='login'>Faça login</a>
+                            <a href="/entrar" className='login'>Faça login</a>
                         </C.RegisterForm>
                     </C.RegisterLeftSide>
                     <C.RegisterRightSide>

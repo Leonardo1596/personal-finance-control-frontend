@@ -120,7 +120,16 @@ export const LoginFormButton = styled.button`
     color: white;
     font-size: 20px;
     width: 100%;
+    transition: all 0.3s;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 30px;
+        height: 30px;
+    }
 
     @media screen and (max-width: 1366px) {
         font-size: 16px;
