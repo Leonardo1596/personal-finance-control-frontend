@@ -112,7 +112,7 @@ export const LoginFormInput = styled.input`
 
 export const LoginFormButton = styled.button`
     margin-top: 0.875rem;
-    margin-bottom: 0.875rem;
+    margin-bottom: 0.700rem;
     height: 56px;
     border-radius: 7px;
     background-color: #3D8FE7;
@@ -135,4 +135,16 @@ export const LoginFormButton = styled.button`
         font-size: 16px;
         height: 50px;
     }
+`;
+
+export const ErrorMessageContainer = styled.div`
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+`;
+
+export const ErrorMessage = styled.span`
+    font-size: 14px;
+    color: red;
+    display: none;
 `;

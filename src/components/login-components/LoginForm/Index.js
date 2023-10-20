@@ -7,11 +7,13 @@ import { setAuth, setUser } from '../../../redux/action';
 const Index = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     function login() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const loginButton = document.getElementById('login');
+        const error = document.getElementById('errorMessage');
 
         setLoading(true);
         loginButton.style.backgroundColor = '#437fbf';
@@ -21,7 +23,7 @@ const Index = () => {
             password: password
         })
             .then(response => {
-                if (response.data.message === "Successfully signed") {
+                if (response.data.message === "Logado com sucesso") {
                     // console.log(response.data.userInfo);
                     dispatch(setAuth(true));
                     dispatch(setUser(response.data.userInfo));
@@ -29,10 +31,14 @@ const Index = () => {
                 } else {
                     setLoading(false);
                     loginButton.style.backgroundColor = '#3D8FE7';
+                    error.style.display = 'block';
+                    setErrorMessage(response.data.message);
                 }
             })
             .catch(err => {
                 console.log(err);
+                setLoading(false);
+                loginButton.style.backgroundColor = '#3D8FE7';
             });
     }
 
@@ -58,6 +64,9 @@ const Index = () => {
                             <C.LoginFormButton onClick={login} id='login'>
                                 {loading ? (<img src='https://api-personal-finance-control.onrender.com/gif/loading-gif.gif' />) : ('Entrar')}
                             </C.LoginFormButton>
+                            <C.ErrorMessageContainer>
+                                <C.ErrorMessage id='errorMessage'>{errorMessage}</C.ErrorMessage>
+                            </C.ErrorMessageContainer>
                             <span>Ainda não tem conta?</span>
                             <a href="/cadastrar" className='register'>Registre-se</a>
                         </C.LoginForm>
