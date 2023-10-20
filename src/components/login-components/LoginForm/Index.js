@@ -3,8 +3,6 @@ import * as C from './styles';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setAuth, setUser } from '../../../redux/action';
-import image from '../../../assets/img/kisspng-chart-finance-control-bar-chart-5b0438420d0808.9861240515270032020534-removebg-preview.png';
-import loadingGif from '../../../assets/gif/loading-gif.gif';
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -43,7 +41,7 @@ const Index = () => {
             <C.LoginContainer>
                 <C.LoginArea>
                     <C.LoginLeftSide>
-                        <img src={image} />
+                        <img src='https://api-personal-finance-control.onrender.com/img/kisspng-chart-finance-control-bar-chart-5b0438420d0808.9861240515270032020534-removebg-preview.png' />
                     </C.LoginLeftSide>
                     <C.LoginRightSide>
                         <C.LoginForm>
@@ -58,7 +56,7 @@ const Index = () => {
                             </C.LoginFormGroup>
                             <a href="#">Esqueceu a senha?</a>
                             <C.LoginFormButton onClick={login} id='login'>
-                                {loading ? (<img src={loadingGif} />) : ('Entrar')}
+                                {loading ? (<img src='https://api-personal-finance-control.onrender.com/gif/loading-gif.gif' />) : ('Entrar')}
                             </C.LoginFormButton>
                             <span>Ainda não tem conta?</span>
                             <a href="/cadastrar" className='register'>Registre-se</a>

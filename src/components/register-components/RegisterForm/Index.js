@@ -1,7 +1,6 @@
 import React from 'react';
 import * as C from './styles' ;
 import axios from 'axios';
-import image from '../../../assets/img/kisspng-chart-finance-control-bar-chart-5b0438420d0808.9861240515270032020534-removebg-preview.png';
 
 const Index = () => {
     function register() {
@@ -55,7 +54,7 @@ const Index = () => {
                         </C.RegisterForm>
                     </C.RegisterLeftSide>
                     <C.RegisterRightSide>
-                        <img src={image} />
+                        <img src='https://api-personal-finance-control.onrender.com/img/kisspng-chart-finance-control-bar-chart-5b0438420d0808.9861240515270032020534-removebg-preview.png' />
                     </C.RegisterRightSide>
                 </C.RegisterArea>
             </C.RegisterContainer>

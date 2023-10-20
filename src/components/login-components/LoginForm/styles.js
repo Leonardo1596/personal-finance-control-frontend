@@ -127,8 +127,8 @@ export const LoginFormButton = styled.button`
     justify-content: center;
 
     img {
-        width: 30px;
-        height: 30px;
+        width: 27px;
+        height: 27px;
     }
 
     @media screen and (max-width: 1366px) {
